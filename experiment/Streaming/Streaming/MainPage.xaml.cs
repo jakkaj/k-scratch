@@ -42,7 +42,7 @@ namespace Streaming
                 httpClient.Timeout = TimeSpan.FromMilliseconds(Timeout.Infinite);
                 var requestUri = "https://functionplayground.scm.azurewebsites.net/logstream";
 
-                var user = "";
+                var user = "$functionplayground";
                 var pass = "";
                
                 var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -76,6 +76,66 @@ namespace Streaming
                 });
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
+
+            }
+        }
+
+        private async void ButtonBase2_OnClick(object sender, RoutedEventArgs e)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.Timeout = TimeSpan.FromMilliseconds(Timeout.Infinite);
+                var requestUri = "https://functionplayground.scm.azurewebsites.net/api/vfs/site/wwwroot/jakpush/project.json";
+
+                var user = "$functionplayground";
+                var pass = "X9JFSeqWfY6knjNPAb5LBMrnLKHB8JWgKYeLPGgTGlSEmZqHXGin1NabWLJi";
+
+                var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+
+                request.Headers.Authorization = new AuthenticationHeaderValue("Basic",
+                    Convert.ToBase64String(Encoding.UTF8.GetBytes($"{user}:{pass}")));
+
+                var result = await httpClient.SendAsync(request);
+                if (!result.IsSuccessStatusCode)
+                {
+                    TxtOutput.Text += result.ReasonPhrase;
+                    return;
+                }
+
+                var sResult = await result.Content.ReadAsStringAsync();
+
+                TxtOutput.Text += sResult;
+
+            }
+        }
+
+        private async void ButtonBase3_OnClick(object sender, RoutedEventArgs e)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.Timeout = TimeSpan.FromMilliseconds(Timeout.Infinite);
+                var requestUri = "https://functionplayground.scm.azurewebsites.net/api/vfs/site/wwwroot/jakpush/test.json";
+
+                var user = "$functionplayground";
+                var pass = "X9JFSeqWfY6knjNPAb5LBMrnLKHB8JWgKYeLPGgTGlSEmZqHXGin1NabWLJi";
+
+                var request = new HttpRequestMessage(HttpMethod.Put, requestUri);
+
+                request.Headers.Authorization = new AuthenticationHeaderValue("Basic",
+                    Convert.ToBase64String(Encoding.UTF8.GetBytes($"{user}:{pass}")));
+
+                request.Content = new StringContent("{test:'test'}");
+
+                var result = await httpClient.SendAsync(request);
+                if (!result.IsSuccessStatusCode)
+                {
+                    TxtOutput.Text += result.ReasonPhrase;
+                    return;
+                }
+
+                var sResult = await result.Content.ReadAsStringAsync();
+
+                TxtOutput.Text += sResult;
 
             }
         }
