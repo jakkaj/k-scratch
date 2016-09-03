@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "exports": {
+    "KScratch.Contract/1.0.0": {
+      "type": "project",
+      "framework": ".NETStandard,Version=v1.3",
+      "compile": {
+        "bin/Debug/KScratch.Contract.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/KScratch.Contract.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/KScratch.Contract.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "KScratch.Entity/1.0.0": {
+      "type": "project",
+      "framework": ".NETStandard,Version=v1.3",
+      "compile": {
+        "bin/Debug/KScratch.Entity.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/KScratch.Entity.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/KScratch.Entity.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "KScratch.Portable/1.0.0": {
+      "type": "project",
+      "framework": ".NETStandard,Version=v1.3",
+      "compile": {
+        "bin/Debug/KScratch.Portable.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/KScratch.Portable.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/KScratch.Portable.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    }
+  }
+}
