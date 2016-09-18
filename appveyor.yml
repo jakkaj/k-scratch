@@ -12,7 +12,7 @@ before_build:
 - appveyor-retry dotnet restore -v Minimal
 build_script:
 - dotnet build "src\KScratch.Entity" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\KScratch.Contract" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "src\KScratch.Contract" -c %CONFIGURATION% -version-suffix %LABEL%
 - dotnet build "src\KScratch.Portable" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 - dotnet build "src\KScratchLog" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 after_build:
