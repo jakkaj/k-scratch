@@ -40,13 +40,13 @@ namespace Streaming
             {
 
                 httpClient.Timeout = TimeSpan.FromMilliseconds(Timeout.Infinite);
-                var requestUri = "https://functionplayground.scm.azurewebsites.net/logstream";
+                var requestUri = "https://functionplayground.scm.azurewebsites.net:443/logstream";
 
                 var user = "$functionplayground";
-                var pass = "";
+                var pass = "X9JFSeqWfY6knjNPAb5LBMrnLKHB8JWgKYeLPGgTGlSEmZqHXGin1NabWLJi";
                
                 var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-
+                        
                 request.Headers.Authorization = new AuthenticationHeaderValue("Basic",
                     Convert.ToBase64String(Encoding.UTF8.GetBytes($"{user}:{pass}")));
 
@@ -58,7 +58,7 @@ namespace Streaming
                 Task.Run(async () =>
                 {
                     using (var reader = new StreamReader(stream))
-                    {
+                    {       
                         while (!reader.EndOfStream)
                         {
 

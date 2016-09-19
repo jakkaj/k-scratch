@@ -13,7 +13,8 @@ namespace KScratch.Portable.Glue
 
             Builder.RegisterAssemblyTypes(typeof(CoreGlue).GetTypeInfo().Assembly)
                 .Where(t => t.Name.EndsWith("Service") || t.Name.EndsWith("Repo"))
-                .AsImplementedInterfaces();
+                .AsImplementedInterfaces()
+                .InstancePerDependency();
 
             Container = Builder.Build();
         }

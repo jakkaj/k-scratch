@@ -13,5 +13,6 @@ namespace KScratch.Entity.Kudu
         public string Password { get; set; }
         public string ApiUrl { get; set; }
         public string LiveUrl { get; set; }
+        public string ProfileName { get; set; }
     }
 }

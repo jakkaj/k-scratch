@@ -11,7 +11,7 @@ namespace KScratch.Tests.Tests
     {
         [Theory]
         [InlineData("C:\\Users\\jakka\\Downloads\\functionplayground.PublishSettings", true)]
-        public void ReadProfileTest(string fileName, bool expectedResult)
+        public void ReadProfile(string fileName, bool expectedResult)
         {
             var publishSettingsService = Resolve<IPublishSettingsService>();
 
@@ -25,6 +25,23 @@ namespace KScratch.Tests.Tests
             {
                 Assert.Null(expectedResult);
             }
+        }
+
+        [Theory]
+        [InlineData("C:\\Users\\jakka\\Downloads\\functionplayground.PublishSettings",
+            "functionplayground - Web Deploy")]
+        public void GetKuduSiteSettings(string fileName, string profileName)
+        {
+            var publishSettingsService = Resolve<IPublishSettingsService>();
+
+            var loaded = publishSettingsService.LoadPublishProfile(fileName);
+            Assert.NotNull(loaded);
+
+            var kuduSettings = publishSettingsService.GetSettingsByProfileName(profileName);
+
+            Assert.NotNull(kuduSettings);
+
+            Assert.True(kuduSettings.ProfileName == profileName);
         }
     }
 }

@@ -40,7 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Glue\CoreGlue.cs" />
+    <Compile Include="Helpers\HttpHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\KuduFileService.cs" />
+    <Compile Include="Services\KuduLogService.cs" />
     <Compile Include="Services\PublishSettingsService.cs" />
   </ItemGroup>
   <ItemGroup>
