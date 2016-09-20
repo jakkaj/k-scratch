@@ -17,8 +17,8 @@ build_script:
 - dotnet build "src\KScratchLog" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 after_build:
 - dotnet publish "src\KScratchLog" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts\ConsoleApplication
-test_script:
-- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
+#test_script:
+#- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
 artifacts:
 - path: artifacts\**\*.*
 cache:
