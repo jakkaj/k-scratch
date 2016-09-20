@@ -11,12 +11,12 @@ init:
 before_build:
 - appveyor-retry dotnet restore -v Minimal
 build_script:
-- dotnet build "src\KScratch.Entity" -c %CONFIGURATION% -r %PLATFORMTARGET%  --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\KScratch.Contract" -c %CONFIGURATION% -r %PLATFORMTARGET% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\KScratch.Portable" -c %CONFIGURATION%  -r %PLATFORMTARGET% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORMTARGET% --no-dependencies --version-suffix %LABEL%
+- dotnet build "src\KScratch.Entity" -c %CONFIGURATION% -r %PLATFORM%  --no-dependencies --version-suffix %LABEL%
+- dotnet build "src\KScratch.Contract" -c %CONFIGURATION% -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
+- dotnet build "src\KScratch.Portable" -c %CONFIGURATION%  -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
+- dotnet build "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
 after_build:
-- dotnet publish "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORMTARGET% --no-build --version-suffix %LABEL% -o artifacts\ConsolePoutput
+- dotnet publish "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORM% --no-build --version-suffix %LABEL% -o artifacts\ConsolePoutput
 #test_script:
 #- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
 artifacts:
