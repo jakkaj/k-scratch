@@ -17,7 +17,7 @@ build_script:
 - dotnet build "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
 after_build:
 - dotnet publish "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORM% --no-build --version-suffix %LABEL% -o artifacts\%PLATFORM%
-- 7z a zip\KScratchLog_%PLATFORM%.zip artifacts\%PLATFORM%\*.*
+- 7z a zip\KScratchLog_%PLATFORM%.zip %APPVEYOR_BUILD_FOLDER%\artifacts\%PLATFORM%\*.*
 #test_script:
 #- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
 artifacts:
