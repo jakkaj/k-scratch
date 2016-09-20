@@ -4,7 +4,14 @@
     "Autofac": "4.1.0",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
     "NETStandard.Library": "1.6.0",
-    "System.IO": "4.1.0"
+    "System.IO": "4.1.0",
+    "System.Xml.XmlSerializer": "4.0.11",
+    "KScratch.Entity": {
+      "target": "project"
+    },
+    "KScratch.Contract": {
+      "target": "project"
+    }
   },
   "frameworks": {
     "netstandard1.3": {}
