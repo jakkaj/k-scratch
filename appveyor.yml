@@ -16,7 +16,7 @@ build_script:
 - dotnet build "src\KScratch.Portable" -c %CONFIGURATION%  -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
 - dotnet build "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
 after_build:
-- dotnet publish "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORM% --no-build --version-suffix %LABEL% -o artifacts\ConsolePoutput
+- dotnet publish "src\KScratchLog" -c %CONFIGURATION% -r %PLATFORM% --no-build --version-suffix %LABEL% -o artifacts\%PLATFORM%
 #test_script:
 #- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
 artifacts:
