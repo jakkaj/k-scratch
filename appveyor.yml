@@ -22,6 +22,7 @@ after_build:
 #- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
 artifacts:
 - path: KScratchLog_%PLATFORM%.zip
+  name: KScratchLog_%PLATFORM%
 cache:
 - '%USERPROFILE%\.nuget\packages'
 on_finish: # Run the demo to show that it works
