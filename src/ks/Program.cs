@@ -22,12 +22,26 @@ namespace ks
 
             var addressee = "world";
 
+            var command = string.Empty;
+            var prune = false;
+            var message = string.Empty;
+            var amend = false;
+
             ArgumentSyntax.Parse(args, syntax =>
             {
-                syntax.DefineOption("n|name", ref addressee, "The addressee to greet");
+                //syntax.DefineOption("n|name", ref addressee, "The addressee to greet");
+                
+                syntax.DefineCommand("pull", ref command, "Pull from another repo");
+                syntax.DefineOption("p|prune", ref prune, "Prune branches");
+
+                syntax.DefineCommand("commit", ref command, "Committing changes");
+                syntax.DefineOption("m|message", ref message, "The message to use");
+                syntax.DefineOption("amend", ref amend, "Amend existing commit");
             });
 
-            Console.WriteLine("Hello {0}!", addressee);
+
+
+            Console.WriteLine($"Command {command}, Prune {prune}, Message {message}, Amend {amend}");
 
 
 
