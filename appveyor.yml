@@ -9,6 +9,7 @@ environment:
 init:
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
 before_build:
+- nuget sources add https://dotnet.myget.org/F/dotnet-corefxlab/
 - appveyor-retry dotnet restore -v Minimal
 build_script:
 - dotnet build "src\KScratch.Entity" -c %CONFIGURATION% -r %PLATFORM%  --no-dependencies --version-suffix %LABEL%
