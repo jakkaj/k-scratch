@@ -5,11 +5,16 @@
   },
 
   "dependencies": {
-    "CommandLine": "0.0.1",
     "Microsoft.NETCore.App": {
-      "type": "platform",
       "version": "1.0.1"
-    }
+    },
+    "System.CommandLine": "0.1.0-e160924-1"
+  },
+
+  "runtimes": {
+    "win7-x64": {},
+    "osx.10.10-x64": {},
+    "ubuntu.14.04-x64": {}
   },
 
   "frameworks": {

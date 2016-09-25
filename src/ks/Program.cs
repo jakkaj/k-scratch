@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.CommandLine;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
-using ks.CommandLineOptions;
-using CommandLine;
 using ks.Glue;
 using KScratch.Portable.Glue;
 
@@ -13,20 +12,26 @@ namespace ks
     public class Program
     {
         static CoreGlue _glue;
+
         public static int Main(string[] args)
         {
             _glue = new CoreGlue();
             _glue.Init(new KSModule());
 
-            var process = _glue.Container.Resolve<Process>();
+            //var process = _glue.Container.Resolve<Process>();
 
-            var result = CommandLine.Parser.Default.ParseArguments<MainOptions>(args);
+            var addressee = "world";
 
-            var exitCode = result
-              .MapResult(
-                options => process.ProcessOptions(options),
-                errors => 1);
-                    return exitCode;
-                }
+            ArgumentSyntax.Parse(args, syntax =>
+            {
+                syntax.DefineOption("n|name", ref addressee, "The addressee to greet");
+            });
+
+            Console.WriteLine("Hello {0}!", addressee);
+
+
+
+            return 0;
+        }
     }
 }
