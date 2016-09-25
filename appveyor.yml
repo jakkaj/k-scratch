@@ -24,7 +24,7 @@ after_build:
 artifacts:
 #- path: zip\**\*.*
 - path: artifacts\%PLATFORM%
-- name: %PLATFORM%
+  name: arti_%PLATFORM%
 cache:
 - '%USERPROFILE%\.nuget\packages'
 on_finish: # Run the demo to show that it works
