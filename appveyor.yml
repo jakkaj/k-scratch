@@ -23,7 +23,7 @@ after_build:
 #- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
 artifacts:
 #- path: zip\**\*.*
-- path: zip\ks_$(platform)
+- path: zip\ks_$(platform).zip
   name: arti_$(platform)
 cache:
 - '%USERPROFILE%\.nuget\packages'
