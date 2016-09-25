@@ -7,7 +7,7 @@ namespace KScratch.Portable.Glue
     {
         protected ContainerBuilder Builder;
 
-        public virtual void Init()
+        public virtual void Init(params Autofac.Module[] module)
         {
             Builder = new ContainerBuilder();
 
@@ -15,6 +15,14 @@ namespace KScratch.Portable.Glue
                 .Where(t => t.Name.EndsWith("Service") || t.Name.EndsWith("Repo"))
                 .AsImplementedInterfaces()
                 .InstancePerDependency();
+
+            if (module != null)
+            {
+                foreach (var mod in module)
+                {
+                    Builder.RegisterModule(mod);
+                }
+            }
 
             Container = Builder.Build();
         }

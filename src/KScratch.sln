@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KScratch.Entity", "KScratch
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KScratchLog", "KScratchLog\KScratchLog.xproj", "{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{5C9295D1-BB33-42B5-B284-99995B195CAD}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ks", "ks\ks.xproj", "{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +43,16 @@ Global
 		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5} = {5C9295D1-BB33-42B5-B284-99995B195CAD}
+		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1} = {5C9295D1-BB33-42B5-B284-99995B195CAD}
 	EndGlobalSection
 EndGlobal

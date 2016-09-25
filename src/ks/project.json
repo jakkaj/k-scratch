@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "CommandLine": "0.0.1",
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.1"
+    }
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "KScratch.Contract": {
+          "target": "project"
+        },
+        "KScratch.Entity": {
+          "target": "project"
+        },
+        "KScratch.Portable": {
+          "target": "project"
+        }
+      }
+    }
+  }
+}
