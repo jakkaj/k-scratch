@@ -18,11 +18,13 @@ build_script:
 - dotnet build "src\ks" -c %CONFIGURATION% -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
 after_build:
 - dotnet publish "src\ks" -c %CONFIGURATION% -r %PLATFORM% --no-build --version-suffix %LABEL% -o artifacts\%PLATFORM%
-- 7z a zip\KScratchLog_%PLATFORM%.zip %APPVEYOR_BUILD_FOLDER%\artifacts\%PLATFORM%\*.*
+#- 7z a zip\ks_%PLATFORM%.zip %APPVEYOR_BUILD_FOLDER%\artifacts\%PLATFORM%\*.*
 #test_script:
 #- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
 artifacts:
-- path: zip\**\*.*
+#- path: zip\**\*.*
+- path: artifacts\%PLATFORM%
+- name: %PLATFORM%
 cache:
 - '%USERPROFILE%\.nuget\packages'
 on_finish: # Run the demo to show that it works
