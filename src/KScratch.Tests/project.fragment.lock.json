@@ -34,23 +34,6 @@
           "copyToOutput": true
         }
       }
-    },
-    "KScratch.Portable/1.0.0": {
-      "type": "project",
-      "framework": ".NETStandard,Version=v1.3",
-      "compile": {
-        "bin/Debug/KScratch.Portable.dll": {}
-      },
-      "runtime": {
-        "bin/Debug/KScratch.Portable.dll": {}
-      },
-      "contentFiles": {
-        "bin/Debug/KScratch.Portable.pdb": {
-          "buildAction": "None",
-          "codeLanguage": "any",
-          "copyToOutput": true
-        }
-      }
     }
   }
 }

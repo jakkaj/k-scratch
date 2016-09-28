@@ -13,6 +13,9 @@
       "target": "project"
     }
   },
+  "buildOptions": {
+    "debugType": "portable"
+  },
   "frameworks": {
     "netstandard1.3": {}
   }
