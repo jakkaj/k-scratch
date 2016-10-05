@@ -10,7 +10,7 @@ namespace ks.Glue
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.RegisterType<Process>().AsSelf();
+            builder.RegisterType<CommandProcessor>().AsSelf();
             base.Load(builder);
         }
     }

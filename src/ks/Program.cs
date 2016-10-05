@@ -18,34 +18,15 @@ namespace ks
             _glue = new CoreGlue();
             _glue.Init(new KSModule());
 
-            //var process = _glue.Container.Resolve<Process>();
+            CommandProcessor process = _glue.Container.Resolve<CommandProcessor>();
 
-            var addressee = "world";
+            var result = process.Process(args);
 
-            var command = string.Empty;
-            var prune = false;
-            var message = string.Empty;
-            var amend = false;
+            Console.WriteLine(result);
 
-            ArgumentSyntax.Parse(args, syntax =>
-            {
-                //syntax.DefineOption("n|name", ref addressee, "The addressee to greet");
-                
-                syntax.DefineCommand("pull", ref command, "Pull from another repo");
-                syntax.DefineOption("p|prune", ref prune, "Prune branches");
+            Console.ReadLine();
 
-                syntax.DefineCommand("commit", ref command, "Committing changes");
-                syntax.DefineOption("m|message", ref message, "The message to use");
-                syntax.DefineOption("amend", ref amend, "Amend existing commit");
-            });
-
-
-
-            Console.WriteLine($"Command {command}, Prune {prune}, Message {message}, Amend {amend}");
-
-
-
-            return 0;
+            return result;
         }
     }
 }

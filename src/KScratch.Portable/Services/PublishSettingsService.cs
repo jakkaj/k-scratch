@@ -7,13 +7,84 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using KScratch.Entity.Enum;
 using KScratch.Entity.Kudu;
 
 namespace KScratch.Portable.Services
 {
     public class PublishSettingsService : IPublishSettingsService
     {
+        /// <summary>
+        /// Data of the loaded publish profile. 
+        /// </summary>
         public PublishData PublishData { get; private set; }
+
+        /// <summary>
+        /// Discover the publish profile, load it and find/load the web deploy option
+        /// </summary>
+        /// <returns>True if discovery was successful. </returns>
+        public KuduSiteSettings AutoLoadPublishProfile()
+        {
+            var discoveredProfile = DiscoverPublishProfile();
+
+            if (discoveredProfile == null)
+            {
+                return null;
+            }
+
+            var pubData = LoadPublishProfile(discoveredProfile);
+
+            if (pubData == null)
+            {
+                return null;
+            }
+
+            //find the web site settings and return
+
+            var kuduSettings = GetSettingsByPublishMethod(PublishMethods.MSDeploy);
+            return kuduSettings;
+        }
+
+        /// <summary>
+        /// Looks in the current folder and all parent paths for a publish file. 
+        /// </summary>
+        /// <returns>File path of the profile</returns>
+        public string DiscoverPublishProfile()
+        {
+            var currentPath = Directory.GetCurrentDirectory();
+            var result = _recursePath(currentPath);
+            return result;
+        }
+
+        /// <summary>
+        /// Scan up the directory structure until a *.PublishSettings
+        /// </summary>
+        /// <param name="path">Current path to scan</param>
+        /// <returns></returns>
+        string _recursePath(string path)
+        {
+            var currentDir = new DirectoryInfo(path);
+
+            foreach (var file in currentDir.GetFiles("*.PublishSettings"))
+            {
+                return file.FullName;
+            }
+
+            var parent = currentDir.Parent;
+
+            if (parent == null)
+            {
+                return null;
+            }
+
+            return _recursePath(parent.FullName);
+        }
+
+        /// <summary>
+        /// Loads and parses the publish profile. Data is store in PublishData 
+        /// </summary>
+        /// <param name="profileFilePath">Path to the publish profile</param>
+        /// <returns>PublishData object containing the loaded publish profile</returns>
 
         public PublishData LoadPublishProfile(string profileFilePath)
         {
