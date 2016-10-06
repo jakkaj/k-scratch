@@ -44,6 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\KuduFileService.cs" />
     <Compile Include="Services\KuduLogService.cs" />
+    <Compile Include="Services\LocalLogService.cs" />
     <Compile Include="Services\PublishSettingsService.cs" />
   </ItemGroup>
   <ItemGroup>
