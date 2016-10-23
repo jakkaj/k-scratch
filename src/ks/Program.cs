@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using ks.Glue;
-using KScratch.Portable.Glue;
+using ks.Model.Contract.Services;
+using ks.Model.Glue;
+using ks.Model.Services;
 
 namespace ks
 {
@@ -18,15 +20,19 @@ namespace ks
             _glue = new CoreGlue();
             _glue.Init(new KSModule());
 
-            CommandProcessor process = _glue.Container.Resolve<CommandProcessor>();
 
-            var result = process.Process(args);
+            var initService = _glue.Container.Resolve<IAppLifecycleService>();
 
-            Console.WriteLine(result);
+            var initResult = initService.Init(args);
 
-            Console.ReadLine();
+            if (initResult != 0)
+            {
+                return initResult;
+            }
 
-            return result;
+            Console.ReadKey();
+
+            return initResult;
         }
     }
 }

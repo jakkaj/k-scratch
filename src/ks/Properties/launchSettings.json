@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ks": {
+      "commandName": "Project",
+      "commandLineArgs": "log"
+    }
+  }
+}

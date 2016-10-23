@@ -3,16 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KScratch.Tests", "KScratch.Tests\KScratch.Tests.xproj", "{43E7B13D-DC4F-443F-9BCA-C0F7AFDD6927}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KScratch.Portable", "KScratch.Portable\KScratch.Portable.csproj", "{053A0741-9DEC-4319-9B7F-4B223407B173}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KScratch.Contract", "KScratch.Contract\KScratch.Contract.csproj", "{01648639-B558-4EBC-A15C-CF36FAB805AB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KScratch.Entity", "KScratch.Entity\KScratch.Entity.csproj", "{698BD62E-4201-4FAA-AE33-577FCB6E0559}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KScratchLog", "KScratchLog\KScratchLog.xproj", "{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{5C9295D1-BB33-42B5-B284-99995B195CAD}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ks", "ks\ks.xproj", "{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}"
@@ -23,26 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{43E7B13D-DC4F-443F-9BCA-C0F7AFDD6927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43E7B13D-DC4F-443F-9BCA-C0F7AFDD6927}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43E7B13D-DC4F-443F-9BCA-C0F7AFDD6927}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43E7B13D-DC4F-443F-9BCA-C0F7AFDD6927}.Release|Any CPU.Build.0 = Release|Any CPU
-		{053A0741-9DEC-4319-9B7F-4B223407B173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{053A0741-9DEC-4319-9B7F-4B223407B173}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{053A0741-9DEC-4319-9B7F-4B223407B173}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{053A0741-9DEC-4319-9B7F-4B223407B173}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01648639-B558-4EBC-A15C-CF36FAB805AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01648639-B558-4EBC-A15C-CF36FAB805AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01648639-B558-4EBC-A15C-CF36FAB805AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01648639-B558-4EBC-A15C-CF36FAB805AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{698BD62E-4201-4FAA-AE33-577FCB6E0559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{698BD62E-4201-4FAA-AE33-577FCB6E0559}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{698BD62E-4201-4FAA-AE33-577FCB6E0559}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{698BD62E-4201-4FAA-AE33-577FCB6E0559}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -52,7 +22,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EABE49B9-D6ED-492B-BCC0-DA47CFF864B5} = {5C9295D1-BB33-42B5-B284-99995B195CAD}
 		{D63E2369-7FCA-4D72-A32A-2E57EA15E5E1} = {5C9295D1-BB33-42B5-B284-99995B195CAD}
 	EndGlobalSection
 EndGlobal
