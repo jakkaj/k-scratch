@@ -1,4 +1,4 @@
-﻿namespace ks.Model.Services
+﻿namespace ks.model.Services
 {
     public class KuduFileService
     {

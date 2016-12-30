@@ -1,8 +1,7 @@
 ﻿using System;
-using ks.Model.Contract;
-using ks.Model.Contract.Services;
+using ks.model.Contract.Services;
 
-namespace ks.Model.Services
+namespace ks.model.Services
 {
     public class LocalLogService : ILocalLogService
     {

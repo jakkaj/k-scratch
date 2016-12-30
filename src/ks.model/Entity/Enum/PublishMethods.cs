@@ -1,4 +1,4 @@
-﻿namespace ks.Model.Entity.Enum
+﻿namespace ks.model.Entity.Enum
 {
     public static class PublishMethods
     {

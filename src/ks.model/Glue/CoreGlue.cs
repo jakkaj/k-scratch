@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
 
-namespace ks.Model.Glue
+namespace ks.model.Glue
 {
     public class CoreGlue
     {

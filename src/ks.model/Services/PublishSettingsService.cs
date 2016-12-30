@@ -1,13 +1,12 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using ks.Model.Contract;
-using ks.Model.Contract.Services;
-using ks.Model.Entity.AzureEntities;
-using ks.Model.Entity.Enum;
-using ks.Model.Entity.Kudu;
+using ks.model.Contract.Services;
+using ks.model.Entity.AzureEntities;
+using ks.model.Entity.Enum;
+using ks.model.Entity.Kudu;
 
-namespace ks.Model.Services
+namespace ks.model.Services
 {
     public class PublishSettingsService : IPublishSettingsService
     {

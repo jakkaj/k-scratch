@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace ks.Model.Entity.AzureEntities
+namespace ks.model.Entity.AzureEntities
 {
     [XmlRoot(ElementName = "publishProfile")]
     public class PublishProfile

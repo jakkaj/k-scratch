@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ks.Model.Contract.Services;
+﻿using ks.model.Contract.Services;
 
-namespace ks.Model.Services
+namespace ks.model.Services
 {
     public class AppLifecycleService : IAppLifecycleService
     {

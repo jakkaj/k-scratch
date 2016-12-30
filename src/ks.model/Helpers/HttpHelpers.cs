@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using ks.Model.Entity.Kudu;
+using ks.model.Entity.Kudu;
 
-namespace ks.Model.Helpers
+namespace ks.model.Helpers
 {
     public static class HttpHelpers
     {

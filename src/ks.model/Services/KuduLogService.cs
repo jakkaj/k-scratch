@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using ks.Model.Contract;
-using ks.Model.Contract.Services;
-using ks.Model.Entity.Enum;
-using ks.Model.Entity.Kudu;
-using ks.Model.Helpers;
+using ks.model.Contract.Services;
+using ks.model.Entity.Enum;
+using ks.model.Entity.Kudu;
+using ks.model.Helpers;
 
-namespace ks.Model.Services
+namespace ks.model.Services
 {
     public class KuduLogService : IKuduLogService
     {

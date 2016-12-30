@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using ks.Glue;
-using ks.Model.Contract.Services;
-using ks.Model.Glue;
-using ks.Model.Services;
+using ks.model.Contract.Services;
+using ks.model.Glue;
+
 
 namespace ks
 {
@@ -25,12 +25,14 @@ namespace ks
 
             var initResult = initService.Init(args);
 
+            Console.ReadKey();
+
             if (initResult != 0)
             {
                 return initResult;
             }
 
-            Console.ReadKey();
+            
 
             return initResult;
         }

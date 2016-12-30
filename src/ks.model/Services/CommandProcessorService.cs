@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.CommandLine;
-using System.Linq;
 using System.Threading.Tasks;
-using ks.Model.Contract.Services;
+using ks.model.Contract.Services;
+using ks.model.Entity;
 
-namespace ks.Model.Services
+namespace ks.model.Services
 {
     public class CommandProcessorService : ICommandProcessorService
     {

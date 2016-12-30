@@ -1,4 +1,4 @@
-﻿namespace ks.Model.Entity.Kudu
+﻿namespace ks.model.Entity.Kudu
 {
     public class KuduSiteSettings
     {

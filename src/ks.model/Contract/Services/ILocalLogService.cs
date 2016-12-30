@@ -1,4 +1,4 @@
-﻿namespace ks.Model.Contract.Services
+﻿namespace ks.model.Contract.Services
 {
     public interface ILocalLogService
     {

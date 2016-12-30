@@ -1,7 +1,7 @@
-﻿using ks.Model.Entity.AzureEntities;
-using ks.Model.Entity.Kudu;
+﻿using ks.model.Entity.AzureEntities;
+using ks.model.Entity.Kudu;
 
-namespace ks.Model.Contract.Services
+namespace ks.model.Contract.Services
 {
     public interface IPublishSettingsService
     {
