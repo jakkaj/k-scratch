@@ -4,8 +4,11 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" />
     <EmbeddedResource Include="**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestBase.cs" />
+    <None Include="Tests\FileGetTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.2.1" />
