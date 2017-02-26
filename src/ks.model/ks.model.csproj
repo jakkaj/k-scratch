@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFramework>netstandard1.5</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="**\*.resx" />
@@ -8,10 +8,14 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.2.1" />
     <PackageReference Include="NETStandard.Library" Version="1.6.1" />
+    <PackageReference Include="System.CommandLine" Version="0.1.0-e170225-1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.CommandLine">
       <HintPath>..\..\..\..\..\.nuget\packages\system.commandline\0.1.0-e160924-1\lib\netstandard1.5\System.CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Watcher">
+      <HintPath>..\..\..\..\..\.nuget\packages\system.io.filesystem.watcher\4.3.0\ref\netstandard1.3\System.IO.FileSystem.Watcher.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.XmlSerializer">
       <HintPath>..\..\..\..\..\.nuget\packages\system.xml.xmlserializer\4.3.0\ref\netstandard1.3\System.Xml.XmlSerializer.dll</HintPath>

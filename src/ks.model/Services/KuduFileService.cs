@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -18,6 +19,8 @@ namespace ks.model.Services
 
         private KuduSiteSettings _siteSettings;
 
+        private FileSystemWatcher _watcher;
+
         public KuduFileService(IPublishSettingsService publishSettingsService, 
             ILocalLogService localLogService)
         {
@@ -25,10 +28,103 @@ namespace ks.model.Services
             _localLogService = localLogService;
         }
 
-        public async Task ListFiles()
+        public void Monitor()
         {
 
+            var baseDir = Directory.GetCurrentDirectory();
 
+            _watcher = new FileSystemWatcher(baseDir);
+            _watcher.IncludeSubdirectories = true;
+
+
+            _watcher.Changed += Watcher_Changed;
+            _watcher.Created += Watcher_Created;
+
+            _watcher.EnableRaisingEvents = true;
+
+            _localLogService.Log($"Monitoring {baseDir} for changes");
+        }
+
+        async void _disable()
+        {
+            _watcher.EnableRaisingEvents = false;
+            await Task.Delay(1000);
+            _watcher.EnableRaisingEvents = true;
+        }
+
+        private async void Watcher_Created(object sender, FileSystemEventArgs e)
+        {
+            _disable();
+            var f = e.FullPath;
+            _localLogService.Log($"Detected file creation {f}");
+            await SendFile(f);
+
+        }
+
+        private async void Watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            _disable();
+               var f = e.FullPath;
+            _localLogService.Log($"Detected file change {f}");
+            await SendFile(f);
+        }
+
+        public async Task SendFile(string fullPath)
+        {
+            if (!File.Exists(fullPath))
+            {
+                return;
+            }
+
+            byte[] data = null;
+
+            try
+            {
+                data = File.ReadAllBytes(fullPath);
+            }
+            catch (Exception ex)
+            {
+                _localLogService.Log($"Could not read {fullPath}. Probably locked or something like that.");
+                return;
+            }
+            
+
+            var baseDir = Directory.GetCurrentDirectory();
+
+            var offsetPath = fullPath.Replace(baseDir, "");
+
+            _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
+
+            var offsetForUrl = offsetPath.Replace('\\', '/');
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.Timeout = TimeSpan.FromMilliseconds(10000);
+
+                var requestUri = $"https://{_siteSettings.ApiUrl}/api/vfs/site/wwwroot{offsetForUrl}";
+                var request = new HttpRequestMessage(HttpMethod.Put, requestUri);
+
+                request.Headers.Authorization = new AuthenticationHeaderValue("Basic",
+                   HttpHelpers.GetAuthenticationString(_siteSettings));
+
+                var content = new ByteArrayContent(data);
+                request.Content = content;
+                request.Headers.Add("If-Match", "*");
+                var result = await httpClient.SendAsync(request);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    _localLogService.Log($"Sent {requestUri}");
+                }
+                else
+                {
+                    _localLogService.Log($"Failed {requestUri}, {result.ToString()}");
+                }
+            }
+        }
+
+        public async Task ListFiles()
+        {
             _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
 
 

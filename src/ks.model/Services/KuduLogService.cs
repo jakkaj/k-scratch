@@ -35,6 +35,7 @@ namespace ks.model.Services
 
         public async Task<bool> StartLog()
         {
+            _localLogService.Log("Starting logstream");
             _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
             StopLog();
             using (HttpClient httpClient = new HttpClient())

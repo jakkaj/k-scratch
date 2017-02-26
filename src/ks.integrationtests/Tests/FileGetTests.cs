@@ -18,6 +18,8 @@ namespace ks.integrationtests.Tests
             var s = Resolve<IKuduFileService>();
 
             await s.ListFiles();
+
+
         }
     }
 }

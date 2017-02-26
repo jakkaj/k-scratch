@@ -20,4 +20,9 @@
   <ItemGroup>
     <ProjectReference Include="..\ks.model\ks.model.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="BasePath\AnotherPath\SomeFile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

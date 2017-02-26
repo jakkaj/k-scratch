@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
@@ -21,6 +22,7 @@ namespace ks.integrationtests
 
         public async Task Init()
         {
+            Directory.SetCurrentDirectory(@"C:\Temp\streamrip\Timelapser");
             var settings = Resolve<IPublishSettingsService>();
             var pubSettings = settings.AutoLoadPublishProfile();
 

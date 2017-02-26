@@ -8,6 +8,12 @@
             CommandHint = "Stream the log to the command window"
         };
 
+        public static Command MonitorCommand = new Command
+        {
+            CommandName = "monitor",
+            CommandHint = "Monitor for changes and upload to Kudu"
+        };
+
     }
 
     public class Command
