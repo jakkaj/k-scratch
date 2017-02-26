@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -84,7 +85,7 @@ namespace ks.model.Services
             }
             catch (Exception ex)
             {
-                _localLogService.Log($"Could not read {fullPath}. Probably locked or something like that.");
+                _localLogService.Log($"Error. Could not read {fullPath}. Probably locked or something like that.");
                 return;
             }
             
@@ -123,6 +124,42 @@ namespace ks.model.Services
             }
         }
 
+        public async Task PullFiles()
+        {
+            _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.Timeout = TimeSpan.FromMilliseconds(10000);
+
+                var requestUri = $"https://{_siteSettings.ApiUrl}/api/zip/site/wwwroot/";
+
+                var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+
+                request.Headers.Authorization = new AuthenticationHeaderValue("Basic",
+                    HttpHelpers.GetAuthenticationString(_siteSettings));
+
+                var response = await httpClient.SendAsync(
+                   request, HttpCompletionOption.ResponseHeadersRead);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _localLogService.Log($"Error: Count not get files from {requestUri}");
+                    return;
+                }
+
+                var result = await response.Content.ReadAsByteArrayAsync();
+
+                var saveFile = Path.GetTempFileName();
+
+                File.WriteAllBytes(saveFile, result);
+
+                ZipFile.ExtractToDirectory(saveFile, Directory.GetCurrentDirectory());
+
+                File.Delete(saveFile);
+            }
+        }
+
         public async Task ListFiles()
         {
             _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
@@ -144,6 +181,7 @@ namespace ks.model.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    _localLogService.Log($"Error: Count not get files from {requestUri}");
                     return;
                 }
 

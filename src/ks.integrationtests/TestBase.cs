@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using ks.Glue;
 using ks.model.Contract.Services;
 using ks.model.Glue;
 
@@ -17,12 +18,12 @@ namespace ks.integrationtests
         public TestBase()
         {
             _glue = new CoreGlue();
-            _glue.Init();
+            _glue.Init(new KSModule());
         }
 
         public async Task Init()
         {
-            Directory.SetCurrentDirectory(@"C:\Temp\streamrip\Timelapser");
+            Directory.SetCurrentDirectory(@"C:\Temp\functions\somefunction");
             var settings = Resolve<IPublishSettingsService>();
             var pubSettings = settings.AutoLoadPublishProfile();
 

@@ -22,5 +22,17 @@ namespace ks.integrationtests.Tests
 
 
         }
+
+        [TestMethod]
+        public async Task DownloadFiles()
+        {
+            await Init();
+
+            var s = Resolve<IKuduFileService>();
+
+            await s.PullFiles();
+
+
+        }
     }
 }

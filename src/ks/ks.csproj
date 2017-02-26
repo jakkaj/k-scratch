@@ -24,6 +24,7 @@
     <PackageReference Include="System.CommandLine">
       <Version>0.1.0-e170225-1</Version>
     </PackageReference>
+    <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
     <PackageReference Include="System.Linq.Queryable">
       <Version>4.3.0</Version>
     </PackageReference>
