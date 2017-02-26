@@ -1,5 +1,7 @@
 # k-scratch
 
+This is a WIP - please provide feedback!
+
 [![Build status](https://ci.appveyor.com/api/projects/status/3e3bkjyc7ia4gy59/branch/master?svg=true)](https://ci.appveyor.com/project/jakkaj/k-scratch/branch/master)
 
 K-Scratch allows you to pull down your Azure functions for local editing. File monitoring immediatly re-uploads changes to Azure when you save. Local log stream allows you to see what's going on as your function compiles and runs. 
