@@ -21,7 +21,9 @@ namespace ks.integrationtests
             _glue.Init(new KSModule());
         }
 
+#pragma warning disable 1998
         public async Task Init()
+#pragma warning restore 1998
         {
             Directory.SetCurrentDirectory(@"C:\Temp\functions\somefunction");
             var settings = Resolve<IPublishSettingsService>();

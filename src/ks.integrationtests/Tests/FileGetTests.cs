@@ -30,7 +30,7 @@ namespace ks.integrationtests.Tests
 
             var s = Resolve<IKuduFileService>();
 
-            await s.PullFiles();
+            await s.GetFiles();
 
 
         }

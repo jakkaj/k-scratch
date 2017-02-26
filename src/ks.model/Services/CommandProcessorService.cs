@@ -16,7 +16,7 @@ namespace ks.model.Services
         private readonly IKuduFileService _fileService;
         private readonly IPublishSettingsService _publishSettingsService;
 
-        public CommandProcessorService(ILocalLogService logService, 
+        public CommandProcessorService(ILocalLogService logService,
             IKuduLogService kuduLogService, IKuduFileService fileService, IPublishSettingsService publishSettingsService)
         {
             _logService = logService;
@@ -35,25 +35,17 @@ namespace ks.model.Services
 
             bool monitor = false;
             bool log = false;
+            bool get = false;
             var path = string.Empty;
-           
+
             ArgumentSyntax.Parse(args, syntax =>
             {
-                syntax.DefineOption("l|log", ref log, "Output the Kudu log stream to the console");
+                syntax.DefineOption("l|log", ref log, "Output the Kudulog stream to the console");
                 syntax.DefineOption("m|monitor", ref monitor, "Monitor the path for changes and send them up");
-
-                //syntax.DefineCommand(Commands.MonitorCommand.CommandName, ref monitor, Commands.MonitorCommand.CommandHint);
                 syntax.DefineOption("p|path", ref path, "The base path of your function (blank for current path)");
-              //  syntax.DefineCommand(Commands.LogCommand.CommandName, ref log, Commands.LogCommand.CommandHint);
+                syntax.DefineOption("g|get", ref get, "Download the Function app ready for editing locally");
 
-            
 
-                //
-                //syntax.DefineOption("p|prune", ref prune, "Prune branches");
-
-                //syntax.DefineCommand("commit", ref command, "Committing changes");
-                //syntax.DefineOption("m|message", ref message, "The message to use");
-                //syntax.DefineOption("amend", ref amend, "Amend existing commit");
             });
 
             if (!string.IsNullOrEmpty(path))
@@ -64,6 +56,12 @@ namespace ks.model.Services
 
 
             }
+
+            if (get)
+            {
+                _fileService.GetFiles().Wait();
+            }
+
 
             if (log)
             {

@@ -85,7 +85,7 @@ namespace ks.model.Services
             }
             catch (Exception ex)
             {
-                _localLogService.Log($"Error. Could not read {fullPath}. Probably locked or something like that.");
+                _localLogService.Log($"Error. Could not read {fullPath}. Probably locked or something like that. {ex.ToString()}");
                 return;
             }
             
@@ -124,7 +124,7 @@ namespace ks.model.Services
             }
         }
 
-        public async Task PullFiles()
+        public async Task GetFiles()
         {
             _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
 
@@ -133,6 +133,8 @@ namespace ks.model.Services
                 httpClient.Timeout = TimeSpan.FromMilliseconds(10000);
 
                 var requestUri = $"https://{_siteSettings.ApiUrl}/api/zip/site/wwwroot/";
+
+                _localLogService.Log($"Grabbing from {requestUri}");
 
                 var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
 
