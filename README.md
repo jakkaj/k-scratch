@@ -27,6 +27,8 @@ You will need the [.NET Core SDK](https://www.microsoft.com/net/core/#windowsvs2
 
 I'll get the builds going soon!
 
+**You need to be in the src\ks directory for all this stuff to work for now.**
+
 #### Usage
 
 ```
@@ -70,4 +72,4 @@ The *-m* option will use file system monitoring to check for new / existing file
 
 Once you send the files back they will be compiled by functions and will automatically run!
 
- 
+<img src="https://cloud.githubusercontent.com/assets/5225782/23344942/7b6a1f28-fcd9-11e6-8cdc-5ca5df20db37.gif" width="800px"/>
