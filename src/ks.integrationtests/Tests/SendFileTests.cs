@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using ks.model.Contract;
+using ks.model.Contract.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ks.integrationtests.Tests

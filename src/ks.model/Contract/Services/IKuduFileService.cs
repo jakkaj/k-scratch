@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace ks.model.Contract
+namespace ks.model.Contract.Services
 {
     public interface IKuduFileService
     {
