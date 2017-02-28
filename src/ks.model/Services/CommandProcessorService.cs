@@ -82,30 +82,5 @@ namespace ks.model.Services
 
             return 0;
         }
-
-        bool _checkCommands(params string[] command)
-        {
-
-
-            if (command.Contains(Commands.LogCommand.CommandName))
-            {
-                Task.Run(() =>
-                {
-                    _kuduLogService.StartLog();
-                });
-                return true;
-            }
-
-            if (command.Contains(Commands.MonitorCommand.CommandName))
-            {
-                Task.Run(() =>
-                {
-                    _fileService.Monitor();
-                });
-                return true;
-            }
-
-            return false;
-        }
     }
 }

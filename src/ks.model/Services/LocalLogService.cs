@@ -12,7 +12,7 @@ namespace ks.model.Services
         private List<string> _errors = new List<string> { "error", "failed"};
         private List<string> _good = new List<string> { "succeeded" };
         private List<string> _warn = new List<string> { "warn" };
-        private List<string> _information = new List<string> { "function completed", "reloading" };
+        private List<string> _information = new List<string> { "function completed", "reloading", "function started" };
 
         public LocalLogService(IConsoleService consoleService)
         {
@@ -28,21 +28,24 @@ namespace ks.model.Services
         public void Log(string output)
         {
             _consoleService.SetNormal();
-
-            if (_check(output, _good))
-            {
-                _consoleService.SetGood();
-            }
+           
 
             if (_check(output, _information))
             {
                 _consoleService.SetInformation();
             }
 
+
+            if (_check(output, _good))
+            {
+                _consoleService.SetGood();
+            }
+
             if (_check(output, _warn))
             {
                 _consoleService.SetWarning();
             }
+
 
             if (_check(output, _errors))
             {

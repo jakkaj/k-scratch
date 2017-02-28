@@ -2,7 +2,7 @@
   "profiles": {
     "ks": {
       "commandName": "Project",
-      "commandLineArgs": "-l -m -p \"C:\\Temp\\streamrip\\Timelapser\""
+      "commandLineArgs": "-l -m -p \"C:\\Temp\\streamrip\\functionedit\""
     }
   }
 }

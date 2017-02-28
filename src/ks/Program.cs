@@ -26,7 +26,7 @@ namespace ks
             var initResult = initService.Init(args);
 
             Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
+            Console.ReadLine();
 
             if (initResult != 0)
             {

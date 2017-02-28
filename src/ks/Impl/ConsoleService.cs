@@ -29,7 +29,7 @@ namespace ks.Impl
 
         public void SetInformation()
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Cyan;
         }
     }
 }

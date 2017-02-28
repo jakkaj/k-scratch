@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -64,12 +65,22 @@ namespace ks.model.Services
                 {
                     using (var reader = new StreamReader(_currentStream))
                     {
+                        var previous = new List<string>();
                         while (!reader.EndOfStream && _currentStream != null)
                         {
                             //We are ready to read the stream
-                            var currentLine = reader.ReadLine();
+                            
+                            var currentLine = await reader.ReadLineAsync();
+
+                            //it doubles up for some reason :/
+                            if (previous.Contains(currentLine))
+                            {
+                                continue;
+                            }
+
+                            previous.Add(currentLine);
+
                             _localLogService.Log(currentLine);
-                            await Task.Yield();
                         }
                     }
                 });
