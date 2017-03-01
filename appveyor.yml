@@ -32,7 +32,7 @@ deploy:
   description: 'Commit build'
   provider: GitHub
   auth_token: 
-    secure: R1Od4gYaFkuhqpFUVBJpVZY4CRAeHuzgH4VQBMfWWXwEAEY4iVJo8sNBq4N # your encrypted token from GitHub
+    secure: R1Od4gYaFkuhqpFUVBJpVZY4CRAeHuzgH4VQBMfWWXwEAEY4iVJo8sNBq4N+4enq # your encrypted token from GitHub
   artifact: zip\ks_$(platform).zip            # upload all NuGet packages to release assets
   draft: true
   prerelease: false
