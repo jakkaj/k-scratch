@@ -20,7 +20,7 @@ build_script:
 - dotnet build "src\ks" -c %CONFIGURATION% -r %PLATFORM% --version-suffix %LABEL%
 after_build:
 - dotnet publish "src\ks" -c %CONFIGURATION% -r %PLATFORM% --version-suffix %LABEL% -o artifacts\%PLATFORM%
-- 7z a zip\ks_%PLATFORM%.zip %APPVEYOR_BUILD_FOLDER%\artifacts\%PLATFORM%\*.*
+- 7z a zip\ks_%PLATFORM%.zip artifacts\%PLATFORM%\*.*
 #test_script:
 #- dotnet test "src\KScratch.Tests" -c %CONFIGURATION%
 artifacts:
