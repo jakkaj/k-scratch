@@ -2,7 +2,7 @@
   "profiles": {
     "ks": {
       "commandName": "Project",
-      "commandLineArgs": "-l -m -p \"C:\\Temp\\streamrip\\functionedit\""
+      "commandLineArgs": "-l -m -p \"C:\\Users\\jak\\Documents\\GitHub\\Functiontest\""
     }
   }
 }

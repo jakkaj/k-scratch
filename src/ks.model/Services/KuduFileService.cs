@@ -70,8 +70,24 @@ namespace ks.model.Services
             await SendFile(f);
         }
 
+        bool _validate(string fullPath)
+        {
+            if(fullPath.Contains("/.") || fullPath.Contains("\\."))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task SendFile(string fullPath)
         {
+            if (!_validate(fullPath))
+            {
+                _localLogService.Log("- Ignored");
+                return;
+            }
+
             if (!File.Exists(fullPath))
             {
                 return;
