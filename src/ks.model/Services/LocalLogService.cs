@@ -29,36 +29,35 @@ namespace ks.model.Services
         {
             _consoleService.SetError();
             Console.WriteLine("");
-            Console.WriteLine(output);
+            Log(output);
             Console.WriteLine("");
-            _consoleService.SetNormal();
         }
 
         public void LogSuccess(string output)
         {
             _consoleService.SetGood();
-            Console.WriteLine(output);
-            _consoleService.SetNormal();
+            Log(output);
         }
 
         public void LogWarning(string output)
         {
             _consoleService.SetWarning();
-            Console.WriteLine(output);
-            _consoleService.SetNormal();
+            Log(output);
         }
 
         public void LogInfo(string output)
         {
             _consoleService.SetInformation();
-            Console.WriteLine($"- {output}");
-            _consoleService.SetNormal();
+            Log($"- {output}");
         }
 
         public void Log(string output)
         {
-            _consoleService.SetNormal();
-           
+
+            if (!output.StartsWith(">") && !output.StartsWith("-"))
+            {
+                output = " " + output;
+            }
 
             if (_check(output, _information))
             {

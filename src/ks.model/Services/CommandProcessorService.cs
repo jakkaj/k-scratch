@@ -53,7 +53,6 @@ namespace ks.model.Services
                     return (1, false);
                 }
                 Directory.SetCurrentDirectory(path);
-                _publishSettingsService.AutoLoadPublishProfile();
             }
 
             var pubSettings = _publishSettingsService.AutoLoadPublishProfile();
@@ -61,6 +60,8 @@ namespace ks.model.Services
             if (pubSettings == null)
             {
                 _logService.LogError("Could not find publish settings file.");
+                _logService.LogInfo("You can download a publish settings file from your Azure App Service settings.");
+                _logService.LogInfo("Sample video: https://cloud.githubusercontent.com/assets/5225782/23344608/ac7c44d4-fcd3-11e6-90f2-0291a31f1522.gif");
                 return (0, false);
             }
 

@@ -10,10 +10,17 @@ namespace ks.model.Services
 {
     public class PublishSettingsService : IPublishSettingsService
     {
+        private readonly ILocalLogService _localLogService;
+
         /// <summary>
         /// Data of the loaded publish profile. 
         /// </summary>
         public PublishData PublishData { get; private set; }
+
+        public PublishSettingsService(ILocalLogService localLogService)
+        {
+            _localLogService = localLogService;
+        }
 
         /// <summary>
         /// Discover the publish profile, load it and find/load the web deploy option
@@ -28,6 +35,7 @@ namespace ks.model.Services
                 return null;
             }
 
+            _localLogService.LogInfo($"Profile settings: {discoveredProfile}");
             PublishData = LoadPublishProfile(discoveredProfile);
 
             if (PublishData == null)
@@ -84,6 +92,7 @@ namespace ks.model.Services
 
         public PublishData LoadPublishProfile(string profileFilePath)
         {
+            
             XmlSerializer serializer =
                 new XmlSerializer(typeof(PublishData));
 
