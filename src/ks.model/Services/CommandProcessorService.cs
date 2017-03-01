@@ -31,7 +31,7 @@ namespace ks.model.Services
                 args = new[] { "-h" };
             }
 
-            _logService.Log("Welcome to k-scratch. Someversion number.");
+            _logService.Log("Welcome to k-scratch. v01.");
 
             bool monitor = false;
             bool log = false;
