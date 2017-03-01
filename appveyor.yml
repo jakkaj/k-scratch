@@ -13,10 +13,10 @@ install:
 - ps: appveyor DownloadFile https://dotnetcli.blob.core.windows.net/dotnet/Sdk/rel-1.0.0/dotnet-dev-win-x64.latest.exe -FileName "c:\dotnet.exe"
 - cmd: call c:\dotnet.exe /quiet
 before_build:
-- appveyor-retry dotnet restore src\KScratch.Model -v Minimal -r %PLATFORM%
+- appveyor-retry dotnet restore src\ks.model -v Minimal -r %PLATFORM%
 - appveyor-retry dotnet restore src\ks -v Minimal -r %PLATFORM%
 build_script:
-- dotnet build "src\KScratch.Model" -c %CONFIGURATION% -r %PLATFORM%  --no-dependencies --version-suffix %LABEL%
+- dotnet build "src\ks.model" -c %CONFIGURATION% -r %PLATFORM%  --no-dependencies --version-suffix %LABEL%
 - dotnet build "src\ks" -c %CONFIGURATION% -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
 after_build:
 - dotnet publish "src\ks" -c %CONFIGURATION% -r %PLATFORM% --no-build --version-suffix %LABEL% -o artifacts\%PLATFORM%
