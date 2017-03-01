@@ -197,7 +197,10 @@ namespace ks.model.Services
 
                     foreach (var f in Directory.GetFiles(dir, "*", SearchOption.AllDirectories))
                     {
-                        _localLogService.Log($" - {f.Replace(dir, "")}");
+                        if (_validate(f))
+                        {
+                            _localLogService.Log($" - {f.Replace(dir, "")}");
+                        }
                     }
                 }
                 catch (System.IO.IOException ex)
