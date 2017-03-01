@@ -43,7 +43,7 @@ namespace ks.model.Services
 
             _watcher.EnableRaisingEvents = true;
 
-            _localLogService.Log($"Monitoring {baseDir} for changes");
+            _localLogService.LogInfo($"Monitoring {baseDir} for changes");
         }
 
         async void _disable()
@@ -57,7 +57,7 @@ namespace ks.model.Services
         {
             _disable();
             var f = e.FullPath;
-            _localLogService.Log($"Detected file creation {f}");
+            _localLogService.LogInfo($"[created] {f.Replace(Directory.GetCurrentDirectory(), "")}");
             await SendFile(f);
 
         }
@@ -66,7 +66,7 @@ namespace ks.model.Services
         {
             _disable();
                var f = e.FullPath;
-            _localLogService.Log($"Detected file change {f}");
+            _localLogService.LogInfo($"[changed] {f.Replace(Directory.GetCurrentDirectory(), "")}");
             await SendFile(f);
         }
 
@@ -174,11 +174,17 @@ namespace ks.model.Services
 
                 try
                 {
-                    ZipFile.ExtractToDirectory(saveFile, Directory.GetCurrentDirectory());
+                    var dir = Directory.GetCurrentDirectory();
+                    ZipFile.ExtractToDirectory(saveFile, dir);
+                    
+                    foreach (var f in Directory.GetFiles(dir, "*", SearchOption.AllDirectories))
+                    {
+                        _localLogService.Log($" - {f.Replace(dir, "")}");
+                    }
                 }
                 catch (System.IO.IOException ex)
                 {
-                    _localLogService.Log(
+                    _localLogService.LogWarning(
                         "k-scratch will not overwrite existing files. Please 'get' in to an empty directory.");
                     return false;
                 }

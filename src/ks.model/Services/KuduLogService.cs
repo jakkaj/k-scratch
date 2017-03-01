@@ -36,7 +36,7 @@ namespace ks.model.Services
 
         public async Task<bool> StartLog()
         {
-            _localLogService.Log("Starting logstream");
+            _localLogService.LogInfo("Starting logstream");
             _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
             StopLog();
             using (HttpClient httpClient = new HttpClient())
@@ -80,7 +80,7 @@ namespace ks.model.Services
 
                             previous.Add(currentLine);
 
-                            _localLogService.Log(currentLine);
+                            _localLogService.Log($" > {currentLine}");
                         }
                     }
                 });

@@ -46,7 +46,12 @@ namespace ks.model.Services
 
             if (!string.IsNullOrEmpty(path))
             {
-                _logService.Log($"Setting base path to {path}");
+                _logService.LogInfo($"Base path: {path}");
+                if (!Directory.Exists(path))
+                {
+                    _logService.LogError("Directory does not exist");
+                    return (1, false);
+                }
                 Directory.SetCurrentDirectory(path);
                 _publishSettingsService.AutoLoadPublishProfile();
             }
@@ -55,7 +60,7 @@ namespace ks.model.Services
 
             if (pubSettings == null)
             {
-                _logService.Log("Could not find publish settings file.");
+                _logService.LogError("Could not find publish settings file.");
                 return (0, false);
             }
 

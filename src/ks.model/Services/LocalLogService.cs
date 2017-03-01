@@ -25,6 +25,36 @@ namespace ks.model.Services
             return checkThings.Select(thing => thing.ToLower()).Any(thingLower => outputLower.Contains(thingLower));
         }
 
+        public void LogError(string output)
+        {
+            _consoleService.SetError();
+            Console.WriteLine("");
+            Console.WriteLine(output);
+            Console.WriteLine("");
+            _consoleService.SetNormal();
+        }
+
+        public void LogSuccess(string output)
+        {
+            _consoleService.SetGood();
+            Console.WriteLine(output);
+            _consoleService.SetNormal();
+        }
+
+        public void LogWarning(string output)
+        {
+            _consoleService.SetWarning();
+            Console.WriteLine(output);
+            _consoleService.SetNormal();
+        }
+
+        public void LogInfo(string output)
+        {
+            _consoleService.SetInformation();
+            Console.WriteLine($"- {output}");
+            _consoleService.SetNormal();
+        }
+
         public void Log(string output)
         {
             _consoleService.SetNormal();
