@@ -27,6 +27,18 @@ artifacts:
 #- path: zip\**\*.*
 - path: zip\ks_$(platform).zip
   name: arti_$(platform)
+deploy:
+  release: kscratch-v$(appveyor_build_version)
+  description: 'Commit build'
+  provider: GitHub
+  auth_token: 
+    secure: R1Od4gYaFkuhqpFUVBJpVZY4CRAeHuzgH4VQBMfWWXwEAEY4iVJo8sNBq4N # your encrypted token from GitHub
+  artifact: zip\ks_$(platform).zip            # upload all NuGet packages to release assets
+  draft: true
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: false        # deploy on tag push only 
 cache:
 - '%USERPROFILE%\.nuget\packages'
 on_finish: # Run the demo to show that it works
