@@ -22,7 +22,7 @@ namespace ks.model.Services
             //check for publish settings file. 
 
             _logService.Log("");
-            _logService.Log("Welcome to k-scratch. v0.1.1");
+            _logService.Log("Welcome to k-scratch. v0.1.2");
             _logService.Log("Documentation and code @ https://github.com/jakkaj/k-scratch");
 
             //just a couple of lines to space things out

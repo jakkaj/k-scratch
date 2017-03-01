@@ -4,7 +4,7 @@ This is a WIP - please provide feedback!
 
 [![Build status](https://ci.appveyor.com/api/projects/status/3e3bkjyc7ia4gy59/branch/master?svg=true)](https://ci.appveyor.com/project/jakkaj/k-scratch/branch/master)
 
-[Download link v0.1.1](https://xammelbs.blob.core.windows.net/downloads/ks_win10x64_v011.zip) (until builds are working)
+[Download link v0.1.2](https://xammelbs.blob.core.windows.net/downloads/ks_win10x64_v012.zip) (until builds are working)
 
  - Pulls Azure Function code to your local machine for editing
  - Monitors files for changes and quickly sends them back to Azure Functions for quick prototyping

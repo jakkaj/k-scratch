@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
     <DebugType>portable</DebugType>
     <AssemblyName>ks</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>ks</PackageId>
-    <RuntimeIdentifiers>win7-x64;win10-x64;osx.10.10-x64;ubuntu.14.04-x64</RuntimeIdentifiers>
-    <RuntimeFrameworkVersion>1.1.0</RuntimeFrameworkVersion>
+    <RuntimeIdentifiers>win7-x64</RuntimeIdentifiers>
+    
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -23,6 +23,7 @@
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
 
+  
   <ItemGroup>
     <ProjectReference Include="..\ks.model\ks.model.csproj" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
   </PropertyGroup>
@@ -14,9 +14,6 @@
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.CommandLine">
-      <HintPath>..\..\..\..\..\.nuget\packages\system.commandline\0.1.0-e160924-1\lib\netstandard1.5\System.CommandLine.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.FileSystem.Watcher">
       <HintPath>..\..\..\..\..\.nuget\packages\system.io.filesystem.watcher\4.3.0\ref\netstandard1.3\System.IO.FileSystem.Watcher.dll</HintPath>
     </Reference>
@@ -24,4 +21,5 @@
       <HintPath>..\..\..\..\..\.nuget\packages\system.xml.xmlserializer\4.3.0\ref\netstandard1.3\System.Xml.XmlSerializer.dll</HintPath>
     </Reference>
   </ItemGroup>
+  
 </Project>
