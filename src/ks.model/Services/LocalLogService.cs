@@ -53,9 +53,10 @@ namespace ks.model.Services
             }
 
             Console.WriteLine(output);
+            _consoleService.SetNormal();
 
 #if DEBUG
-              Debug.WriteLine(output);
+            Debug.WriteLine(output);
 #endif
         }
     }
