@@ -2,7 +2,7 @@
   "profiles": {
     "ks": {
       "commandName": "Project",
-      "commandLineArgs": "-g -p \"C:\\Temp\\func\\TestFunc\""
+      "commandLineArgs": "-m -l -p \"C:\\Users\\jak\\Documents\\GitHub\\TestFunctionRepo\""
     }
   }
 }

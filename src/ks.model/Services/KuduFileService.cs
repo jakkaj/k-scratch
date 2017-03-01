@@ -22,7 +22,7 @@ namespace ks.model.Services
 
         private FileSystemWatcher _watcher;
 
-        public KuduFileService(IPublishSettingsService publishSettingsService, 
+        public KuduFileService(IPublishSettingsService publishSettingsService,
             ILocalLogService localLogService)
         {
             _publishSettingsService = publishSettingsService;
@@ -57,6 +57,12 @@ namespace ks.model.Services
         {
             _disable();
             var f = e.FullPath;
+
+            if (!_validate(f))
+            {
+                return;
+            }
+
             _localLogService.LogInfo($"[created] {f.Replace(Directory.GetCurrentDirectory(), "")}");
             await SendFile(f);
 
@@ -65,14 +71,32 @@ namespace ks.model.Services
         private async void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
             _disable();
-               var f = e.FullPath;
+            var f = e.FullPath;
+
+            if (!_validate(f))
+            {
+                return;
+            }
+
             _localLogService.LogInfo($"[changed] {f.Replace(Directory.GetCurrentDirectory(), "")}");
             await SendFile(f);
         }
 
         bool _validate(string fullPath)
         {
-            if(fullPath.Contains("/.") || fullPath.Contains("\\."))
+            //we only want to send files that are in folders. 
+            var pathSubs = fullPath.Replace(Directory.GetCurrentDirectory(), "").Trim(Path.DirectorySeparatorChar);
+
+            if (pathSubs.IndexOf(Path.DirectorySeparatorChar) == -1)
+            {
+                return false;
+            }
+
+            var fn = Path.GetFileName(fullPath);
+            if (fullPath.Contains("/.") ||
+                fullPath.Contains("\\.") ||
+                fn.StartsWith(".")
+                )
             {
                 return false;
             }
@@ -82,12 +106,6 @@ namespace ks.model.Services
 
         public async Task SendFile(string fullPath)
         {
-            if (!_validate(fullPath))
-            {
-                _localLogService.Log("- Ignored");
-                return;
-            }
-
             if (!File.Exists(fullPath))
             {
                 return;
@@ -104,7 +122,7 @@ namespace ks.model.Services
                 _localLogService.Log($"Error. Could not read {fullPath}. Probably locked or something like that. {ex.ToString()}");
                 return;
             }
-            
+
 
             var baseDir = Directory.GetCurrentDirectory();
 
@@ -176,7 +194,7 @@ namespace ks.model.Services
                 {
                     var dir = Directory.GetCurrentDirectory();
                     ZipFile.ExtractToDirectory(saveFile, dir);
-                    
+
                     foreach (var f in Directory.GetFiles(dir, "*", SearchOption.AllDirectories))
                     {
                         _localLogService.Log($" - {f.Replace(dir, "")}");
@@ -192,7 +210,7 @@ namespace ks.model.Services
                 {
                     File.Delete(saveFile);
                 }
-                
+
                 return true;
             }
         }
