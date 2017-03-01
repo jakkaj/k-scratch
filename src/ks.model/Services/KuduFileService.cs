@@ -140,7 +140,7 @@ namespace ks.model.Services
             }
         }
 
-        public async Task GetFiles()
+        public async Task<bool> GetFiles()
         {
             _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
 
@@ -163,7 +163,7 @@ namespace ks.model.Services
                 if (!response.IsSuccessStatusCode)
                 {
                     _localLogService.Log($"Error: Count not get files from {requestUri}");
-                    return;
+                    return false;
                 }
 
                 var result = await response.Content.ReadAsByteArrayAsync();
@@ -172,9 +172,22 @@ namespace ks.model.Services
 
                 File.WriteAllBytes(saveFile, result);
 
-                ZipFile.ExtractToDirectory(saveFile, Directory.GetCurrentDirectory());
-
-                File.Delete(saveFile);
+                try
+                {
+                    ZipFile.ExtractToDirectory(saveFile, Directory.GetCurrentDirectory());
+                }
+                catch (System.IO.IOException ex)
+                {
+                    _localLogService.Log(
+                        "k-scratch will not overwrite existing files. Please 'get' in to an empty directory.");
+                    return false;
+                }
+                finally
+                {
+                    File.Delete(saveFile);
+                }
+                
+                return true;
             }
         }
 

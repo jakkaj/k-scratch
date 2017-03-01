@@ -24,18 +24,16 @@ namespace ks.model.Services
             _fileService = fileService;
             _publishSettingsService = publishSettingsService;
         }
-        public int Process(string[] args)
+        public (int, bool) Process(string[] args)
         {
             if (args == null || args.Length == 0)
             {
                 args = new[] { "-h" };
             }
 
-           
-
-            bool monitor = false;
-            bool log = false;
-            bool get = false;
+            var monitor = false;
+            var log = false;
+            var get = false;
             var path = string.Empty;
 
             ArgumentSyntax.Parse(args, syntax =>
@@ -44,8 +42,6 @@ namespace ks.model.Services
                 syntax.DefineOption("m|monitor", ref monitor, "Monitor the path for changes and send them up");
                 syntax.DefineOption("p|path", ref path, "The base path of your function (blank for current path)");
                 syntax.DefineOption("g|get", ref get, "Download the Function app ready for editing locally");
-
-
             });
 
             if (!string.IsNullOrEmpty(path))
@@ -53,15 +49,25 @@ namespace ks.model.Services
                 _logService.Log($"Setting base path to {path}");
                 Directory.SetCurrentDirectory(path);
                 _publishSettingsService.AutoLoadPublishProfile();
+            }
 
+            var pubSettings = _publishSettingsService.AutoLoadPublishProfile();
 
+            if (pubSettings == null)
+            {
+                _logService.Log("Could not find publish settings file.");
+                return (0, false);
             }
 
             if (get)
             {
-                _fileService.GetFiles().Wait();
-            }
+                var filesResult = _fileService.GetFiles().Result;
 
+                if (!filesResult)
+                {
+                    return (1, false);
+                }
+            }
 
             if (log)
             {
@@ -77,10 +83,10 @@ namespace ks.model.Services
                 {
                     _fileService.Monitor();
                 });
+                return (0, true);
             }
 
-
-            return 0;
+            return (0, false);
         }
     }
 }

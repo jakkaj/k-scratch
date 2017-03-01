@@ -2,6 +2,6 @@
 {
     public interface ICommandProcessorService
     {
-        int Process(string[] args);
+        (int, bool) Process(string[] args);
     }
 }

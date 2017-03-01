@@ -2,6 +2,6 @@
 {
     public interface IAppLifecycleService
     {
-        int Init(string[] args);
+        (int, bool) Init(string[] args);
     }
 }

@@ -25,15 +25,12 @@ namespace ks
 
             var initResult = initService.Init(args);
 
+            if (!initResult.Item2) return initResult.Item1;
+
             Console.WriteLine("Press any key to exit...");
             Console.ReadLine();
 
-            if (initResult != 0)
-            {
-                return initResult;
-            }
-
-            return initResult;
+            return initResult.Item1;
         }
     }
 }
