@@ -19,6 +19,12 @@ It's probably best not to use this on your prod functions :)
 #### Quick Intro Video
 [![Quick Intro](http://img.youtube.com/vi/J6y_K6dUhSQ/0.jpg)](http://www.youtube.com/watch?v=J6y_K6dUhSQ "Quick Intro")
 
+#### Working with GitHub / source control
+
+When deploying from GitHub and other providers, Functions become locked (and so they should!). kscratch allows you to work from GitHub and rapidly prototype and test changes on the same **non-production** functions. 
+
+[![kscratch and GitHub](http://img.youtube.com/vi/hN2bL7pxx7w/0.jpg)](http://www.youtube.com/watch?v=hN2bL7pxx7w "kscratch and GitHub")
+
 *YouTube*
 
 #### Build
