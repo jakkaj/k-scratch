@@ -4,7 +4,7 @@ This is a WIP - please provide feedback!
 
 [![Build status](https://ci.appveyor.com/api/projects/status/3e3bkjyc7ia4gy59/branch/master?svg=true)](https://ci.appveyor.com/project/jakkaj/k-scratch/branch/master)
 
-[Download link v0.1.2](https://xammelbs.blob.core.windows.net/downloads/ks_win10x64_v012.zip) (until builds are working)
+[Latest releases](https://github.com/jakkaj/k-scratch/releases)
 
  - Pulls Azure Function code to your local machine for editing
  - Monitors files for changes and quickly sends them back to Azure Functions for quick prototyping
@@ -23,9 +23,9 @@ It's probably best not to use this on your prod functions :)
 
 #### Build
 
-Until I get the builds going (I know, I know!) you can use dotnet run to get k-scratch running. 
+You can use dotnet run to get k-scratch running from source, or use the [release](https://github.com/jakkaj/k-scratch/releases). 
 
-You will need the [.NET Core SDK](https://www.microsoft.com/net/core/#windowsvs2017). 
+You will need the [.NET Core SDK](https://www.microsoft.com/net/core/#windowsvs2017) if you plan to build. Or you can use Visual Studio 2017. 
 
 I'll get the builds going soon!
 
