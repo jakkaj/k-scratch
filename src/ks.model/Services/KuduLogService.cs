@@ -43,7 +43,7 @@ namespace ks.model.Services
             {
                 httpClient.Timeout = TimeSpan.FromMilliseconds(Timeout.Infinite);
 
-                var requestUri = $"https://{_siteSettings.ApiUrl}/logstream";
+                var requestUri = $"https://{_siteSettings.ApiUrl}/logstream/application";
 
                 var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
 

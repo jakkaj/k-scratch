@@ -137,6 +137,7 @@ namespace ks.model.Services
                 httpClient.Timeout = TimeSpan.FromMilliseconds(10000);
 
                 var requestUri = $"https://{_siteSettings.ApiUrl}/api/vfs/site/wwwroot{offsetForUrl}";
+
                 var request = new HttpRequestMessage(HttpMethod.Put, requestUri);
 
                 request.Headers.Authorization = new AuthenticationHeaderValue("Basic",
@@ -158,7 +159,7 @@ namespace ks.model.Services
             }
         }
 
-        public async Task<bool> GetFiles()
+        public async Task<bool> GetFiles(string subPath = null)
         {
             _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
 
@@ -167,6 +168,12 @@ namespace ks.model.Services
                 httpClient.Timeout = TimeSpan.FromMilliseconds(10000);
 
                 var requestUri = $"https://{_siteSettings.ApiUrl}/api/zip/site/wwwroot/";
+
+                if (!string.IsNullOrEmpty(subPath))
+                {
+                    subPath = subPath.Trim('/').Trim('\\');
+                    requestUri += $"{subPath}/";
+                }
 
                 _localLogService.Log($"Grabbing from {requestUri}");
 
@@ -193,6 +200,11 @@ namespace ks.model.Services
                 try
                 {
                     var dir = Directory.GetCurrentDirectory();
+                    if (!string.IsNullOrEmpty(subPath))
+                    {
+                        dir += $"\\{subPath}";
+                    }
+
                     ZipFile.ExtractToDirectory(saveFile, dir);
 
                     foreach (var f in Directory.GetFiles(dir, "*", SearchOption.AllDirectories))

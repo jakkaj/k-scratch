@@ -2,7 +2,7 @@
   "profiles": {
     "ks": {
       "commandName": "Project",
-      "commandLineArgs": "-g -p \"C:\\Users\\jak\\Documents\\GitHub\\TestFunctionRepo\""
+      "commandLineArgs": "-l -m -p \"C:\\Users\\jak\\Documents\\GitHub\\media-ingestion\""
     }
   }
 }

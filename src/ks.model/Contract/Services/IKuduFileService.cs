@@ -7,6 +7,6 @@ namespace ks.model.Contract.Services
         Task ListFiles();
         Task SendFile(string offsetFile);
         void Monitor();
-        Task<bool> GetFiles();
+        Task<bool> GetFiles(string subPath = null);
     }
 }

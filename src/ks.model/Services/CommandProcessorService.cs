@@ -35,6 +35,7 @@ namespace ks.model.Services
             var log = false;
             var get = false;
             var path = string.Empty;
+            var folder = string.Empty;
 
             ArgumentSyntax.Parse(args, syntax =>
             {
@@ -42,6 +43,7 @@ namespace ks.model.Services
                 syntax.DefineOption("m|monitor", ref monitor, "Monitor the path for changes and send them up");
                 syntax.DefineOption("p|path", ref path, "The base path of your function (blank for current path)");
                 syntax.DefineOption("g|get", ref get, "Download the Function app ready for editing locally");
+                syntax.DefineOption("f|folder", ref folder, "Sub folder to get. If omitted it will get everything under wwwroot from Kudu");
             });
 
             if (!string.IsNullOrEmpty(path))
@@ -67,7 +69,7 @@ namespace ks.model.Services
 
             if (get)
             {
-                var filesResult = _fileService.GetFiles().Result;
+                var filesResult = _fileService.GetFiles(folder).Result;
 
                 if (!filesResult)
                 {
