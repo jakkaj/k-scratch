@@ -34,6 +34,7 @@ namespace ks.model.Services
             var monitor = false;
             var log = false;
             var get = false;
+            var upload = false;
             var path = string.Empty;
             var folder = string.Empty;
 
@@ -43,7 +44,8 @@ namespace ks.model.Services
                 syntax.DefineOption("m|monitor", ref monitor, "Monitor the path for changes and send them up");
                 syntax.DefineOption("p|path", ref path, "The base path of your function (blank for current path)");
                 syntax.DefineOption("g|get", ref get, "Download the Function app ready for editing locally");
-                syntax.DefineOption("f|folder", ref folder, "Sub folder to get. If omitted it will get everything under wwwroot from Kudu");
+                syntax.DefineOption("u|upload", ref upload, "Output the Kudulog stream to the console");
+                syntax.DefineOption("f|folder", ref folder, "Sub folder to get or upload. If omitted it will get or send everything under wwwroot from Kudu");
             });
 
             if (!string.IsNullOrEmpty(path))
@@ -76,6 +78,15 @@ namespace ks.model.Services
                     return (1, false);
                 }
             }
+            else if(upload) //we probably don't want get and set!
+            {
+                var filesResult = _fileService.UploadFiles(folder).Result;
+
+                if (!filesResult)
+                {
+                    return (1, false);
+                }
+            }            
 
             if (log)
             {
