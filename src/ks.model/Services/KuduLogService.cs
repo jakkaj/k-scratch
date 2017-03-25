@@ -69,21 +69,32 @@ namespace ks.model.Services
                         while (!reader.EndOfStream && _currentStream != null)
                         {
                             //We are ready to read the stream
-                            
-                            var currentLine = await reader.ReadLineAsync();
-
-                            //it doubles up for some reason :/
-                            if (previous.Contains(currentLine))
+                            try
                             {
-                                continue;
+                                var currentLine = await reader.ReadLineAsync();
+
+                                //it doubles up for some reason :/
+                                if (previous.Contains(currentLine))
+                                {
+                                    continue;
+                                }
+
+                                previous.Add(currentLine);
+
+                                _localLogService.Log($" > {currentLine}");
                             }
-
-                            previous.Add(currentLine);
-
-                            _localLogService.Log($" > {currentLine}");
+                            catch (Exception ex)
+                            {
+                                return;
+                            }
+                            
                         }
                     }
+                    StopLog();
+                    StartLog();
                 });
+
+               
 
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 return true;

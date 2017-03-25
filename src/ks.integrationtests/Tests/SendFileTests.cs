@@ -23,6 +23,16 @@ namespace ks.integrationtests.Tests
 
             await Task.Delay(40000);
         }
+        
+        [TestMethod]
+        public async Task SendZip()
+        {
+            await Init();
+
+            var s = Resolve<IKuduFileService>();
+
+            var dir = Directory.GetCurrentDirectory();
+        }
 
         [TestMethod]
         public async Task SendFile()
