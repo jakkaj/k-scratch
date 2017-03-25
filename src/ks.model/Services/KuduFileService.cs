@@ -10,6 +10,7 @@ using ks.model.Contract.Services;
 using ks.model.Entity.Enum;
 using ks.model.Entity.Kudu;
 using ks.model.Helpers;
+using System.Collections.Generic;
 
 namespace ks.model.Services
 {
@@ -21,6 +22,12 @@ namespace ks.model.Services
         private KuduSiteSettings _siteSettings;
 
         private FileSystemWatcher _watcher;
+
+        System.Threading.Timer _timer;
+
+        private List<string> _filesChangedList = new List<string>();
+
+        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         public KuduFileService(IPublishSettingsService publishSettingsService,
             ILocalLogService localLogService)
@@ -44,6 +51,32 @@ namespace ks.model.Services
             _watcher.EnableRaisingEvents = true;
 
             _localLogService.LogInfo($"Monitoring {baseDir} for changes");
+
+            _timer = new Timer(new TimerCallback(_monitorCallback), null, 1000, 2000);
+        }
+
+        async void _monitorCallback(object data)
+        {
+            await _semaphore.WaitAsync();
+
+            try
+            {
+                foreach (var f in _filesChangedList)
+                {
+                    _localLogService.LogInfo($"[Sending] {f.Replace(Directory.GetCurrentDirectory(), "")}");
+                    await SendFile(f);
+                }
+            }
+            catch(Exception ex)
+            {
+                _localLogService.LogError($"Error: exception in _monitorCallback: {ex.Message}");
+            }
+            finally
+            {
+                _filesChangedList.Clear();
+                _semaphore.Release();
+            }          
+          
         }
 
         async void _disable()
@@ -55,31 +88,43 @@ namespace ks.model.Services
 
         private async void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            _disable();
+            //_disable();
             var f = e.FullPath;
 
             if (!_validate(f))
             {
                 return;
+            }           
+
+            await _semaphore.WaitAsync();
+
+            if (!_filesChangedList.Contains(f))
+            {
+                _filesChangedList.Add(f);
             }
 
-            _localLogService.LogInfo($"[created] {f.Replace(Directory.GetCurrentDirectory(), "")}");
-            await SendFile(f);
+            _semaphore.Release();
 
         }
 
         private async void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            _disable();
+            //_disable();
             var f = e.FullPath;
 
             if (!_validate(f))
             {
                 return;
+            }           
+
+            await _semaphore.WaitAsync();
+
+            if (!_filesChangedList.Contains(f))
+            {
+                _filesChangedList.Add(f);
             }
 
-            _localLogService.LogInfo($"[changed] {f.Replace(Directory.GetCurrentDirectory(), "")}");
-            await SendFile(f);
+            _semaphore.Release();
         }
 
         bool _validate(string fullPath)
@@ -88,6 +133,11 @@ namespace ks.model.Services
             var pathSubs = fullPath.Replace(Directory.GetCurrentDirectory(), "").Trim(Path.DirectorySeparatorChar);
 
             if (pathSubs.IndexOf(Path.DirectorySeparatorChar) == -1)
+            {
+                return false;
+            }
+
+            if (pathSubs.IndexOf("~") != -1)
             {
                 return false;
             }

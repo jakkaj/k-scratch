@@ -32,6 +32,9 @@ namespace ks.integrationtests.Tests
             var s = Resolve<IKuduFileService>();
 
             var dir = Directory.GetCurrentDirectory();
+
+            var result = await s.UploadFiles();
+            Assert.IsTrue(result);
         }
 
         [TestMethod]

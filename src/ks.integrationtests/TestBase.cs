@@ -25,7 +25,7 @@ namespace ks.integrationtests
         public async Task Init()
 #pragma warning restore 1998
         {
-            Directory.SetCurrentDirectory(@"C:\Temp\functions\somefunction");
+            Directory.SetCurrentDirectory(@"C:\Users\jak\Documents\GitHub\FunctionsAsWebProject\FunctionsAsWebProject\bin\Release\PublishOutput");
             var settings = Resolve<IPublishSettingsService>();
             var pubSettings = settings.AutoLoadPublishProfile();
 
