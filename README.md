@@ -19,6 +19,7 @@ It's probably best not to use this on your prod functions :)
 #### Quick Intro Video
 [![Quick Intro](http://img.youtube.com/vi/J6y_K6dUhSQ/0.jpg)](http://www.youtube.com/watch?v=J6y_K6dUhSQ "Quick Intro")
 
+
 #### Working with GitHub / source control
 
 When deploying from GitHub and other providers, Functions become locked (and so they should!). kscratch allows you to work from GitHub and rapidly prototype and test changes on the same **non-production** functions. 
@@ -40,14 +41,18 @@ I'll get the builds going soon!
 #### Usage
 
 ```
-usage: ks [-l] [-m] [-p <arg>] [-g]
+usage: ks [-l] [-m] [-p <arg>] [-g] [-u] [-f <arg>]
 
-    -l, --log           Output the Kudulog stream to the console
-    -m, --monitor       Monitor the path for changes and send them up
-    -p, --path <arg>    The base path of your function (blank for
-                        current path)
-    -g, --get           Download the Function app ready for editing
-                        locally
+    -l, --log             Output the Kudulog stream to the console
+    -m, --monitor         Monitor the path for changes and send them up
+    -p, --path <arg>      The base path of your function (blank for
+                          current path)
+    -g, --get             Download the Function app ready for editing
+                          locally
+    -u, --upload          Output the Kudulog stream to the console
+    -f, --folder <arg>    Sub folder to get or upload. If omitted it
+                          will get or send everything under wwwroot from
+                          Kudu
 ```
 
 First you need to create an Azure function. I tend to use consumption based ones, nice and cheap for my muck around functions... but you can use normal App Service for them too (with slots etc). 
@@ -81,3 +86,19 @@ The *-m* option will use file system monitoring to check for new / existing file
 Once you send the files back they will be compiled by functions and will automatically run!
 
 <img src="https://cloud.githubusercontent.com/assets/5225782/23344942/7b6a1f28-fcd9-11e6-8cdc-5ca5df20db37.gif" width="800px"/>
+
+#### Support for compiled functions
+
+It's super easy to work with pre-compiled functions too. This works in VS2017 as well!
+
+- To set up a web project for usage with Azure Functions, follow along [here](https://blogs.msdn.microsoft.com/appserviceteam/2017/03/16/publishing-a-net-class-library-as-a-function-app/). I did the HttpTrigger sample. 
+- "Publish" your project to a folder target (in VS, right click web project, select publish and choose the folder option).
+- Drop your publish profile in the root of the publish folder target (the folder up from where all the files actually went).
+- The first time you do this you will need to upload all the files using the -u option (to upload stuff) with the -p option potining to the publish director (with all the published files in them).  
+- Start monitoring using -m and pass in the publish folder (with the published files in them) to the -p option. 
+
+Now you're ready to edit in Visual Studio / Code. When you want to send files to your live function, run the following build command from the command prompt or run the publish command in Visual Studio again. 
+
+```
+msbuild <your csproj>.csproj /p:DeployOnBuild=true /p:PublishProfile=<your profile>
+```
