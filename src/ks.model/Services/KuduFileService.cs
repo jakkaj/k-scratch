@@ -159,6 +159,70 @@ namespace ks.model.Services
             }
         }
 
+        public async Task<bool> UploadFiles(string subPath = null)
+        {
+            _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
+
+            var dir = Directory.GetCurrentDirectory();
+            if (!string.IsNullOrEmpty(subPath))
+            {
+                dir += $"\\{subPath}";
+            }
+
+            var tmpFile = Path.GetTempFileName();
+            if (File.Exists(tmpFile))
+            {
+                File.Delete(tmpFile);
+            }
+            ZipFile.CreateFromDirectory(dir, tmpFile);
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.Timeout = TimeSpan.FromMinutes(10);
+
+                var requestUri = $"https://{_siteSettings.ApiUrl}/api/zip/site/wwwroot/";
+
+                if (!string.IsNullOrEmpty(subPath))
+                {
+                    subPath = subPath.Trim('/').Trim('\\');
+                    requestUri += $"{subPath}/";
+                }
+
+                var request = new HttpRequestMessage(HttpMethod.Put, requestUri);
+
+                try
+                {
+                    using (var stream = File.OpenRead(tmpFile))
+                    {
+                        request.Content = new StreamContent(File.OpenRead(tmpFile));
+
+                        request.Headers.Authorization = new AuthenticationHeaderValue("Basic",
+                            HttpHelpers.GetAuthenticationString(_siteSettings));
+
+                        var response = await httpClient.SendAsync(request);
+
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            _localLogService.Log($"Error: Could not upload files files to {requestUri} - {response.ReasonPhrase}");
+                            return false;
+                        }
+
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _localLogService.Log($"Problem uploadin files: {ex.Message}");
+                }
+                finally
+                {
+                    File.Delete(tmpFile);
+                }
+
+                return false;
+            }
+        }
+
         public async Task<bool> GetFiles(string subPath = null)
         {
             _siteSettings = _publishSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
