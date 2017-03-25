@@ -28,10 +28,12 @@ namespace ks.model.Services
         private List<string> _filesChangedList = new List<string>();
 
         static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+        readonly IFileWatcherService _fileWatcherService;
 
         public KuduFileService(IPublishSettingsService publishSettingsService,
-            ILocalLogService localLogService)
+            ILocalLogService localLogService, IFileWatcherService fileWatcherService)
         {
+            _fileWatcherService = fileWatcherService;
             _publishSettingsService = publishSettingsService;
             _localLogService = localLogService;
         }
@@ -41,118 +43,11 @@ namespace ks.model.Services
 
             var baseDir = Directory.GetCurrentDirectory();
 
-            _watcher = new FileSystemWatcher(baseDir);
-            _watcher.IncludeSubdirectories = true;
-
-
-            _watcher.Changed += Watcher_Changed;
-            _watcher.Created += Watcher_Created;
-
-            _watcher.EnableRaisingEvents = true;
-
-            _localLogService.LogInfo($"Monitoring {baseDir} for changes");
-
-            _timer = new Timer(new TimerCallback(_monitorCallback), null, 1000, 2000);
-        }
-
-        async void _monitorCallback(object data)
-        {
-            await _semaphore.WaitAsync();
-
-            try
+            _fileWatcherService.Watch(baseDir, async (f) =>
             {
-                foreach (var f in _filesChangedList)
-                {
-                    _localLogService.LogInfo($"[Sending] {f.Replace(Directory.GetCurrentDirectory(), "")}");
-                    await SendFile(f);
-                }
-            }
-            catch(Exception ex)
-            {
-                _localLogService.LogError($"Error: exception in _monitorCallback: {ex.Message}");
-            }
-            finally
-            {
-                _filesChangedList.Clear();
-                _semaphore.Release();
-            }          
-          
-        }
-
-        async void _disable()
-        {
-            _watcher.EnableRaisingEvents = false;
-            await Task.Delay(1000);
-            _watcher.EnableRaisingEvents = true;
-        }
-
-        private async void Watcher_Created(object sender, FileSystemEventArgs e)
-        {
-            //_disable();
-            var f = e.FullPath;
-
-            if (!_validate(f))
-            {
-                return;
-            }           
-
-            await _semaphore.WaitAsync();
-
-            if (!_filesChangedList.Contains(f))
-            {
-                _filesChangedList.Add(f);
-            }
-
-            _semaphore.Release();
-
-        }
-
-        private async void Watcher_Changed(object sender, FileSystemEventArgs e)
-        {
-            //_disable();
-            var f = e.FullPath;
-
-            if (!_validate(f))
-            {
-                return;
-            }           
-
-            await _semaphore.WaitAsync();
-
-            if (!_filesChangedList.Contains(f))
-            {
-                _filesChangedList.Add(f);
-            }
-
-            _semaphore.Release();
-        }
-
-        bool _validate(string fullPath)
-        {
-            //we only want to send files that are in folders. 
-            var pathSubs = fullPath.Replace(Directory.GetCurrentDirectory(), "").Trim(Path.DirectorySeparatorChar);
-
-            if (pathSubs.IndexOf(Path.DirectorySeparatorChar) == -1)
-            {
-                return false;
-            }
-
-            if (pathSubs.IndexOf("~") != -1)
-            {
-                return false;
-            }
-
-            var fn = Path.GetFileName(fullPath);
-            if (fullPath.Contains("/.") ||
-                fullPath.Contains("\\.") ||
-                fn.StartsWith(".")
-                )
-            {
-                return false;
-            }
-
-            return true;
-        }
+                await SendFile(f);
+            });
+        }       
 
         public async Task SendFile(string fullPath)
         {
@@ -323,7 +218,7 @@ namespace ks.model.Services
 
                     foreach (var f in Directory.GetFiles(dir, "*", SearchOption.AllDirectories))
                     {
-                        if (_validate(f))
+                        if (_fileWatcherService.Validate(f))
                         {
                             _localLogService.Log($" - {f.Replace(dir, "")}");
                         }

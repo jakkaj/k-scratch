@@ -2,7 +2,7 @@
   "profiles": {
     "ks": {
       "commandName": "Project",
-      "commandLineArgs": "-u -p \"C:\\Users\\jakka\\Documents\\GitHub\\FunctionsAsWebProject\\FunctionsAsWebProject\\bin\\Release\\PublishOutput\""
+      "commandLineArgs": "-m -l -p \"C:\\Users\\jak\\Documents\\GitHub\\FunctionsAsWebProject\\FunctionsAsWebProject\\bin\\Release\\PublishOutput\""
     }
   }
 }

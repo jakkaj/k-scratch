@@ -17,7 +17,8 @@ namespace ks.model.Services
         private readonly IPublishSettingsService _publishSettingsService;
 
         public CommandProcessorService(ILocalLogService logService,
-            IKuduLogService kuduLogService, IKuduFileService fileService, IPublishSettingsService publishSettingsService)
+            IKuduLogService kuduLogService, IKuduFileService fileService, 
+            IPublishSettingsService publishSettingsService)
         {
             _logService = logService;
             _kuduLogService = kuduLogService;
@@ -34,7 +35,8 @@ namespace ks.model.Services
             var monitor = false;
             var log = false;
             var get = false;
-            var upload = false;
+            var upload = false;            
+
             var path = string.Empty;
             var folder = string.Empty;
 
@@ -95,7 +97,7 @@ namespace ks.model.Services
                     _kuduLogService.StartLog();
                 });
             }
-
+            
             if (monitor)
             {
                 Task.Run(() =>

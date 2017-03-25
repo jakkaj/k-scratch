@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
+using ks.model.Contract.Services;
+using ks.model.Services;
 
 namespace ks.model.Glue
 {
@@ -15,6 +17,8 @@ namespace ks.model.Glue
                 .Where(t => t.Name.EndsWith("Service") || t.Name.EndsWith("Repo"))
                 .AsImplementedInterfaces()
                 .SingleInstance();
+
+            Builder.RegisterType<FileWatcherService>().As<IFileWatcherService>().InstancePerDependency();
 
             if (module != null)
             {
