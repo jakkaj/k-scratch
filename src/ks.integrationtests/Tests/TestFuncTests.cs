@@ -20,6 +20,7 @@ namespace ks.integrationtests.Tests
 
             p.Add("key", "r5kV9oZQLV5aPXzNhpX21GKTi5riIZFU3hW2TJaQB/ux/uq0tKzKjw==");
 
+            var result3 = await tester.RunTest(4);
             var result2 = await tester.RunTest(2);
             var result = await tester.RunTest(3);
             
