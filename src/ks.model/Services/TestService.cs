@@ -117,13 +117,19 @@ namespace ks.model.Services
 
                 urlBase += $"code={await _getKey(siteSettings, setting)}";
 
-                return await _doRequest(urlBase, conf.method, conf.headers, conf.body, siteSettings);
-                
+                return await _doRequest(urlBase, conf.method, conf.headers, conf.body, siteSettings);             
 
             }
             else
             {
                 //other trigger, so call this one via admin api
+                var urlBase = $"{siteSettings.LiveUrl}/admin/functions/{setting.name}";
+                var headers = new Dictionary<string, string>();
+                headers.Add("x-functions-key", funcKey);
+
+                var post = $"{{\"input\":\"{setting.test_data}\"}}";
+
+                var result = await urlBase.Post(post, headers);
             }
 
             return true;
