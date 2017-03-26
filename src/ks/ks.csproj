@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.3.0" />
-    <PackageReference Include="System.CommandLine" Version="0.1.0-e170225-1" />
+    <PackageReference Include="System.CommandLine" Version="0.1.0-e170325-4" />
     <PackageReference Include="System.IO.FileSystem.Watcher" Version="4.3.0" />
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
     <PackageReference Include="System.Reflection" Version="4.3.0" />

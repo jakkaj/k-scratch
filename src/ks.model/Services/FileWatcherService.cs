@@ -1,4 +1,6 @@
-﻿using ks.model.Contract.Services;
+﻿using ks.model.Contract.Repos;
+using ks.model.Contract.Services;
+using ks.model.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,18 +20,19 @@ namespace ks.model.Services
         private List<string> _filesChangedList = new List<string>();
 
         static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-
        
         readonly ILocalLogService _localLogService;
+        IFileRepo _fileRepo;
 
-        public FileWatcherService(ILocalLogService logService)
+        public FileWatcherService(ILocalLogService logService, IFileRepo fileRepo)
         {
+            _fileRepo = fileRepo;
             this._localLogService = logService;       
         }
 
         public void Watch(string path, Func<string, Task> callback)
         {
-            var baseDir = Directory.GetCurrentDirectory();
+            var baseDir = _fileRepo.PathOffset(path);            
 
             _watcher = new FileSystemWatcher(baseDir);
             _watcher.IncludeSubdirectories = true;

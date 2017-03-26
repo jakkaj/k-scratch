@@ -8,7 +8,7 @@ using ks.Glue;
 using ks.model.Contract.Services;
 using ks.model.Glue;
 
-namespace ks.integrationtests
+namespace ks.unittests
 {
 
     public class TestBase
@@ -25,7 +25,7 @@ namespace ks.integrationtests
         public async Task Init()
 #pragma warning restore 1998
         {
-            Directory.SetCurrentDirectory(@"C:\Users\jak\Documents\GitHub\FunctionsAsWebProject\FunctionsAsWebProject\bin\Release\PublishOutput");
+            Directory.SetCurrentDirectory(@"C:\Users\jakka\Documents\GitHub\FunctionsAsWebProject\FunctionsAsWebProject\bin\Release\PublishOutput");
             var settings = Resolve<IPublishSettingsService>();
             var pubSettings = settings.AutoLoadPublishProfile();
 

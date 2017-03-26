@@ -7,7 +7,7 @@ using ks.model.Contract;
 using ks.model.Contract.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ks.integrationtests.Tests
+namespace ks.unittests.Tests
 {
     [TestClass]
     public class SendFileTests : TestBase
