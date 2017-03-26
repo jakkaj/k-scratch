@@ -15,11 +15,14 @@ namespace ks.model.Services
         private readonly IKuduLogService _kuduLogService;
         private readonly IKuduFileService _fileService;
         private readonly IPublishSettingsService _publishSettingsService;
+        readonly IParamService _paramService;
 
         public CommandProcessorService(ILocalLogService logService,
             IKuduLogService kuduLogService, IKuduFileService fileService, 
-            IPublishSettingsService publishSettingsService)
+            IPublishSettingsService publishSettingsService, 
+            IParamService paramService)
         {
+            this._paramService = paramService;
             _logService = logService;
             _kuduLogService = kuduLogService;
             _fileService = fileService;
@@ -39,6 +42,7 @@ namespace ks.model.Services
 
             var path = string.Empty;
             var folder = string.Empty;
+            var key = string.Empty;
 
             ArgumentSyntax.Parse(args, syntax =>
             {
@@ -48,7 +52,16 @@ namespace ks.model.Services
                 syntax.DefineOption("g|get", ref get, "Download the Function app ready for editing locally");
                 syntax.DefineOption("u|upload", ref upload, "Output the Kudulog stream to the console");
                 syntax.DefineOption("f|folder", ref folder, "Sub folder to get or upload. If omitted it will get or send everything under wwwroot from Kudu");
+                syntax.DefineOption("k|key", ref key, "Function key for use when calling test endpoints");
             });
+
+            _paramService.Add("monitor", monitor.ToString());
+            _paramService.Add("log", log.ToString());
+            _paramService.Add("get", get.ToString());
+            _paramService.Add("upload", upload.ToString());
+            _paramService.Add("path", path);
+            _paramService.Add("folder", folder);
+            _paramService.Add("key", key);
 
             if (!string.IsNullOrEmpty(path))
             {

@@ -11,6 +11,7 @@ namespace ks.model.Entity
             public const string In = "in";
             public const string Trigger = "Trigger";
             public const string HttpTrigger = "httpTrigger";
+            public const string Default = "default";            
         }
     }
 }
