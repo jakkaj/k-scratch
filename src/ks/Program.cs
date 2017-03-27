@@ -41,6 +41,11 @@ namespace ks
                     return initResult.Item1;
                 }
 
+                if (key.Key == ConsoleKey.R)
+                {
+                    var result = testService.GetFunctionData().Result;
+                }
+
                 var i = (int)key.Key;
 
                 //49 is 1. We want to start from 0 @ 49

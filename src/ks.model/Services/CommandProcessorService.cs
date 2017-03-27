@@ -16,13 +16,16 @@ namespace ks.model.Services
         private readonly IKuduFileService _fileService;
         private readonly IPublishSettingsService _publishSettingsService;
         readonly IParamService _paramService;
+        private readonly ITestService _testService;
 
         public CommandProcessorService(ILocalLogService logService,
             IKuduLogService kuduLogService, IKuduFileService fileService, 
             IPublishSettingsService publishSettingsService, 
-            IParamService paramService)
+            IParamService paramService, 
+            ITestService testService)
         {
             this._paramService = paramService;
+            _testService = testService;
             _logService = logService;
             _kuduLogService = kuduLogService;
             _fileService = fileService;
@@ -83,6 +86,11 @@ namespace ks.model.Services
                 _logService.LogInfo("Sample video: https://cloud.githubusercontent.com/assets/5225782/23344608/ac7c44d4-fcd3-11e6-90f2-0291a31f1522.gif");
                 return (0, false);
             }
+
+            if (key != string.Empty)
+            {
+                var result = _testService.GetFunctionData().Result;
+            }   
 
             if (get)
             {

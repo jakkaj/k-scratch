@@ -28,6 +28,8 @@ namespace ks.model.Services
         readonly ILocalLogService _localLogService;
         readonly IParamService _paramService;
 
+        private List<FunctionSettings> _settings;
+
         public TestService(IFileRepo fileRepo, 
             IFunctionSettingsService functionSettings,
             IPublishSettingsService pubSettingsService, 
@@ -63,6 +65,35 @@ namespace ks.model.Services
             return k?.value;            
         }
 
+        public async Task<bool> GetFunctionData()
+        {
+            _settings = await _functionSettings.GetFunctionSettings();
+
+            _localLogService.Log("Refreshing functions");
+
+            if (_settings == null)
+            {
+                _localLogService.LogError("Could not get function settings! Check the function key passed in with the 'k' parameter.");
+                return false;
+            }
+
+            _localLogService.LogInfo("    Functions in this site \r\n          press (number) to run test data on live Azure Function. Press (r) to refresh function data from server.");
+
+            var count = 1;
+
+            foreach (var s in _settings)
+            {
+                var binding = s.config.bindings
+               .FirstOrDefault(_ => _.direction == KsConstants.Functions.In &&
+               _.type.EndsWith(KsConstants.Functions.Trigger, StringComparison.Ordinal));
+
+                _localLogService.LogInfo($"    ({count}) {s.name} [{binding?.type}]");
+                count++;
+            }
+
+            return true;
+        }
+
         public async Task<bool> RunTest(int testNumber)
         {
             var funcKey = _paramService.Get("key");
@@ -73,32 +104,34 @@ namespace ks.model.Services
                 return false;
             }
 
-            var settings = await _functionSettings.GetFunctionSettings();
-
-            if(settings == null)
+            if(_settings == null)
             {
                 return false;
             }
 
-            if(settings.Count < testNumber)
+            if(_settings.Count < testNumber)
             {
                 return false;
             }
 
-            var setting = settings[testNumber - 1];
+            var setting = _settings[testNumber - 1];
 
             //find the direction
 
-            var binding = setting.config.bindings.Where(
-                _ => _.direction == KsConstants.Functions.In && 
-                _.type.EndsWith(KsConstants.Functions.Trigger, StringComparison.Ordinal))
-                .FirstOrDefault();
+            var binding = setting.config.bindings
+                .FirstOrDefault(_ => _.direction == KsConstants.Functions.In && 
+                _.type.EndsWith(KsConstants.Functions.Trigger, StringComparison.Ordinal));
+
+            
 
             if(binding == null)
             {
+                _localLogService.LogError($"Could not find an input binding for function {setting.name}");
                 //erm? 
                 return false;
             }
+
+            _localLogService.LogInfo($" > Running function {setting.name} ({binding.type}) with data {setting.test_data}");
 
             var siteSettings = _pubSettingsService.GetSettingsByPublishMethod(PublishMethods.MSDeploy);
 
@@ -141,7 +174,7 @@ namespace ks.model.Services
             string body, KuduSiteSettings settings)
         {
 
-            _localLogService.LogInfo($"Calling: {url}");
+            _localLogService.LogInfo($" > Calling: {url}");
 
             using (HttpClient httpClient = new HttpClient())
             {
