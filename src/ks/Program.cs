@@ -59,7 +59,7 @@ namespace ks
                     }
                 }                
 
-                System.Threading.Thread.Sleep(250);
+                System.Threading.Thread.Sleep(50);
             }
             
 

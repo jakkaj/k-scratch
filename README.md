@@ -41,7 +41,7 @@ I'll get the builds going soon!
 #### Usage
 
 ```
-usage: ks [-l] [-m] [-p <arg>] [-g] [-u] [-f <arg>]
+usage: ks [-l] [-m] [-p <arg>] [-g] [-u] [-f <arg>] [-k <arg>]
 
     -l, --log             Output the Kudulog stream to the console
     -m, --monitor         Monitor the path for changes and send them up
@@ -53,6 +53,8 @@ usage: ks [-l] [-m] [-p <arg>] [-g] [-u] [-f <arg>]
     -f, --folder <arg>    Sub folder to get or upload. If omitted it
                           will get or send everything under wwwroot from
                           Kudu
+    -k, --key <arg>       Function key for use when calling test
+                          endpoints
 ```
 
 First you need to create an Azure function. I tend to use consumption based ones, nice and cheap for my muck around functions... but you can use normal App Service for them too (with slots etc). 
@@ -102,3 +104,7 @@ Now you're ready to edit in Visual Studio / Code. When you want to send files to
 ```
 msbuild <your csproj>.csproj /p:DeployOnBuild=true /p:PublishProfile=<your profile>
 ```
+
+#### Running your function remotely
+
+See [Testing](https://github.com/jakkaj/k-scratch/blob/master/docs/testing.md) for information on how to remotely run and test your functions. 
