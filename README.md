@@ -1,5 +1,7 @@
 # k-scratch
 
+**Note:** This project is no longer active. It's been replaced by the port to node [here](https://github.com/jakkaj/k-scratch-node). 
+
 This is a WIP - please provide feedback!
 
 [![Build status](https://ci.appveyor.com/api/projects/status/3e3bkjyc7ia4gy59/branch/master?svg=true)](https://ci.appveyor.com/project/jakkaj/k-scratch/branch/master)
